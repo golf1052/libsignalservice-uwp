@@ -87,12 +87,13 @@ namespace libtextsecure.push {
             "UERBVEUQARILCgdERUxJVkVSEAISCAoEUVVJVBADIpABCg5Db250YWN0RGV0", 
             "YWlscxIOCgZudW1iZXIYASABKAkSDAoEbmFtZRgCIAEoCRIxCgZhdmF0YXIY", 
             "AyABKAsyIS50ZXh0c2VjdXJlLkNvbnRhY3REZXRhaWxzLkF2YXRhchotCgZB", 
-            "dmF0YXISEwoLY29udGVudFR5cGUYASABKAkSDgoGbGVuZ3RoGAIgASgNIpkB", 
+            "dmF0YXISEwoLY29udGVudFR5cGUYASABKAkSDgoGbGVuZ3RoGAIgASgNIq8B", 
             "CgxHcm91cERldGFpbHMSCgoCaWQYASABKAwSDAoEbmFtZRgCIAEoCRIPCgdt", 
             "ZW1iZXJzGAMgAygJEi8KBmF2YXRhchgEIAEoCzIfLnRleHRzZWN1cmUuR3Jv", 
-            "dXBEZXRhaWxzLkF2YXRhchotCgZBdmF0YXISEwoLY29udGVudFR5cGUYASAB", 
-            "KAkSDgoGbGVuZ3RoGAIgASgNQj8KK29yZy53aGlzcGVyc3lzdGVtcy50ZXh0", 
-          "c2VjdXJlLmludGVybmFsLnB1c2hCEFRleHRTZWN1cmVQcm90b3M="));
+            "dXBEZXRhaWxzLkF2YXRhchIUCgZhY3RpdmUYBSABKAg6BHRydWUaLQoGQXZh", 
+            "dGFyEhMKC2NvbnRlbnRUeXBlGAEgASgJEg4KBmxlbmd0aBgCIAEoDUI/Citv", 
+            "cmcud2hpc3BlcnN5c3RlbXMudGV4dHNlY3VyZS5pbnRlcm5hbC5wdXNoQhBU", 
+          "ZXh0U2VjdXJlUHJvdG9z"));
       pbd::FileDescriptor.InternalDescriptorAssigner assigner = delegate(pbd::FileDescriptor root) {
         descriptor = root;
         internal__static_textsecure_Envelope__Descriptor = Descriptor.MessageTypes[0];
@@ -146,7 +147,7 @@ namespace libtextsecure.push {
         internal__static_textsecure_GroupDetails__Descriptor = Descriptor.MessageTypes[7];
         internal__static_textsecure_GroupDetails__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::libtextsecure.push.TextSecureProtos.GroupDetails, global::libtextsecure.push.TextSecureProtos.GroupDetails.Builder>(internal__static_textsecure_GroupDetails__Descriptor,
-                new string[] { "Id", "Name", "Members", "Avatar", });
+                new string[] { "Id", "Name", "Members", "Avatar", "Active", });
         internal__static_textsecure_GroupDetails_Avatar__Descriptor = internal__static_textsecure_GroupDetails__Descriptor.NestedTypes[0];
         internal__static_textsecure_GroupDetails_Avatar__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::libtextsecure.push.TextSecureProtos.GroupDetails.Types.Avatar, global::libtextsecure.push.TextSecureProtos.GroupDetails.Types.Avatar.Builder>(internal__static_textsecure_GroupDetails_Avatar__Descriptor,
@@ -5049,8 +5050,8 @@ namespace libtextsecure.push {
     public sealed partial class GroupDetails : pb::GeneratedMessage<GroupDetails, GroupDetails.Builder> {
       private GroupDetails() { }
       private static readonly GroupDetails defaultInstance = new GroupDetails().MakeReadOnly();
-      private static readonly string[] _groupDetailsFieldNames = new string[] { "avatar", "id", "members", "name" };
-      private static readonly uint[] _groupDetailsFieldTags = new uint[] { 34, 10, 26, 18 };
+      private static readonly string[] _groupDetailsFieldNames = new string[] { "active", "avatar", "id", "members", "name" };
+      private static readonly uint[] _groupDetailsFieldTags = new uint[] { 40, 34, 10, 26, 18 };
       public static GroupDetails DefaultInstance {
         get { return defaultInstance; }
       }
@@ -5441,6 +5442,16 @@ namespace libtextsecure.push {
         get { return avatar_ ?? global::libtextsecure.push.TextSecureProtos.GroupDetails.Types.Avatar.DefaultInstance; }
       }
       
+      public const int ActiveFieldNumber = 5;
+      private bool hasActive;
+      private bool active_ = true;
+      public bool HasActive {
+        get { return hasActive; }
+      }
+      public bool Active {
+        get { return active_; }
+      }
+      
       public override bool IsInitialized {
         get {
           return true;
@@ -5451,16 +5462,19 @@ namespace libtextsecure.push {
         CalcSerializedSize();
         string[] field_names = _groupDetailsFieldNames;
         if (hasId) {
-          output.WriteBytes(1, field_names[1], Id);
+          output.WriteBytes(1, field_names[2], Id);
         }
         if (hasName) {
-          output.WriteString(2, field_names[3], Name);
+          output.WriteString(2, field_names[4], Name);
         }
         if (members_.Count > 0) {
-          output.WriteStringArray(3, field_names[2], members_);
+          output.WriteStringArray(3, field_names[3], members_);
         }
         if (hasAvatar) {
-          output.WriteMessage(4, field_names[0], Avatar);
+          output.WriteMessage(4, field_names[1], Avatar);
+        }
+        if (hasActive) {
+          output.WriteBool(5, field_names[0], Active);
         }
         UnknownFields.WriteTo(output);
       }
@@ -5495,6 +5509,9 @@ namespace libtextsecure.push {
         }
         if (hasAvatar) {
           size += pb::CodedOutputStream.ComputeMessageSize(4, Avatar);
+        }
+        if (hasActive) {
+          size += pb::CodedOutputStream.ComputeBoolSize(5, Active);
         }
         size += UnknownFields.SerializedSize;
         memoizedSerializedSize = size;
@@ -5631,6 +5648,9 @@ namespace libtextsecure.push {
           if (other.HasAvatar) {
             MergeAvatar(other.Avatar);
           }
+          if (other.HasActive) {
+            Active = other.Active;
+          }
           this.MergeUnknownFields(other.UnknownFields);
           return this;
         }
@@ -5693,6 +5713,10 @@ namespace libtextsecure.push {
                 }
                 input.ReadMessage(subBuilder, extensionRegistry);
                 Avatar = subBuilder.BuildPartial();
+                break;
+              }
+              case 40: {
+                result.hasActive = input.ReadBool(ref result.active_);
                 break;
               }
             }
@@ -5816,6 +5840,26 @@ namespace libtextsecure.push {
           PrepareBuilder();
           result.hasAvatar = false;
           result.avatar_ = null;
+          return this;
+        }
+        
+        public bool HasActive {
+          get { return result.hasActive; }
+        }
+        public bool Active {
+          get { return result.Active; }
+          set { SetActive(value); }
+        }
+        public Builder SetActive(bool value) {
+          PrepareBuilder();
+          result.hasActive = true;
+          result.active_ = value;
+          return this;
+        }
+        public Builder ClearActive() {
+          PrepareBuilder();
+          result.hasActive = false;
+          result.active_ = true;
           return this;
         }
       }

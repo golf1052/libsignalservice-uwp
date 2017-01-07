@@ -91,6 +91,56 @@ namespace libtextsecure.util
                 throw new AssertionError(e);
             }*/
         }
+
+        public static string readFully(Stream input)
+        {
+            MemoryStream bout = new MemoryStream();
+            byte[] buffer = new byte[4096];
+            int read;
+
+            while((read = input.Read(buffer, 0, buffer.Length)) != -1)
+            {
+                bout.Write(buffer, 0, read);
+            }
+
+            input.Dispose();
+
+            return Encoding.UTF8.GetString(bout.ToArray());
+        }
+
+        public static void readFully(Stream input, byte[] buffer)
+        {
+            int offset = 0;
+
+            for (;;)
+            {
+                int read = input.Read(buffer, offset, buffer.Length - offset);
+
+                if (read + offset < buffer.Length)
+                {
+                    offset += read;
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+
+        public static void copy(Stream input, Stream output)
+        {
+            byte[] buffer = new byte[4096];
+            int read;
+
+            while ((read = input.Read(buffer, 0, buffer.Length)) != -1)
+            {
+                output.Write(buffer, 0, read);
+            }
+
+            input.Dispose();
+            output.Dispose();
+        }
+
         /*
         public static String readFully(InputStream in)// throws IOException
         {

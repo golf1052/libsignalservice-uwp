@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,13 +31,15 @@ namespace libtextsecure.messages.multidevice
         private readonly May<String> name;
         private readonly IList<String> members;
         private readonly May<TextSecureAttachmentStream> avatar;
+        private readonly bool active;
 
-        public DeviceGroup(byte[] id, May<String> name, IList<String> members, May<TextSecureAttachmentStream> avatar)
+        public DeviceGroup(byte[] id, May<String> name, IList<String> members, May<TextSecureAttachmentStream> avatar, bool active)
         {
             this.id = id;
             this.name = name;
             this.members = members;
             this.avatar = avatar;
+            this.active = active;
         }
 
         public May<TextSecureAttachmentStream> getAvatar()
@@ -58,6 +60,11 @@ namespace libtextsecure.messages.multidevice
         public IList<String> getMembers()
         {
             return members;
+        }
+
+        public bool isActive()
+        {
+            return active;
         }
 
     }

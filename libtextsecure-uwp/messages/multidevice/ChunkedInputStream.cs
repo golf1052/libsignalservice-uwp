@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,139 +20,117 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Storage.Streams;
+using System.IO;
 
 namespace libtextsecure.messages.multidevice
 {
     public class ChunkedInputStream
     {
+        protected readonly Stream input;
 
-        protected readonly IInputStream input;
-
-        public ChunkedInputStream(IInputStream input)
+        public ChunkedInputStream(Stream input)
         {
             this.input = input;
         }
 
         protected int readRawVarint32()// throws IOException
         {
-            /*byte tmp = (byte)in.read();
+            byte tmp = (byte)input.ReadByte();
             if (tmp >= 0)
             {
                 return tmp;
             }
             int result = tmp & 0x7f;
-            if ((tmp = (byte)in.read()) >= 0) {
+            if ((tmp = (byte)input.ReadByte()) >= 0)
+            {
                 result |= tmp << 7;
-            } else {
+            }
+            else
+            {
                 result |= (tmp & 0x7f) << 7;
-                if ((tmp = (byte)in.read()) >= 0) {
+                if ((tmp = (byte)input.ReadByte()) >= 0)
+                {
                     result |= tmp << 14;
-                } else {
+                }
+                else
+                {
                     result |= (tmp & 0x7f) << 14;
-                    if ((tmp = (byte)in.read()) >= 0) {
+                    if ((tmp = (byte)input.ReadByte()) >= 0)
+                    {
                         result |= tmp << 21;
-                    } else {
+                    }
+                    else
+                    {
                         result |= (tmp & 0x7f) << 21;
-                        result |= (tmp = (byte)in.read()) << 28;
+                        result |= (tmp = (byte)input.ReadByte()) << 28;
                         if (tmp < 0)
                         {
                             // Discard upper 32 bits.
                             for (int i = 0; i < 5; i++)
                             {
-                                if ((byte)in.read() >= 0) {
-                                return result;
+                                if ((byte)input.ReadByte() >= 0)
+                                {
+                                    return result;
+                                }
                             }
-                        }
 
-                        throw new Exception("Malformed varint!");
+                            throw new IOException("Malformed varint!");
+                        }
                     }
                 }
             }
 
-
-        }*/
-            throw new NotImplementedException();
-            //return result;
+            return result;
         }
 
-        /*protected static class LimitedInputStream : FilterInputStream
+        internal class LimitedInputStream : MemoryStream
         {
-
             private long left;
             private long mark = -1;
 
-            LimitedInputStream(InputStream in, long limit)
+            internal LimitedInputStream(long limit) : base()
             {
-                super(in);
                 left = limit;
             }
 
-            @Override public int available() throws IOException
+            public override long Length
             {
-            return (int)Math.min(in.available(), left);
-        }
-
-        // it's okay to mark even if mark isn't supported, as reset won't work
-        @Override public synchronized void mark(int readLimit)
-        {
-      in.mark(readLimit);
-            mark = left;
-        }
-
-        @Override public int read() throws IOException
-        {
-            if (left == 0)
-            {
-                return -1;
+                get
+                {
+                    return Math.Min(base.Length, left);
+                }
             }
 
-            int result = in.read();
-            if (result != -1)
+            public override int ReadByte()
             {
-                --left;
+                if (left == 0)
+                {
+                    return -1;
+                }
+
+                int result = base.ReadByte();
+                if (result != -1)
+                {
+                    --left;
+                }
+                return result;
             }
-            return result;
+
+            public override int Read(byte[] buffer, int offset, int count)
+            {
+                if (left == 0)
+                {
+                    return -1;
+                }
+
+                count = (int)Math.Min(count, left);
+                int result = base.Read(buffer, offset, count);
+                if (result != -1)
+                {
+                    left -= result;
+                }
+                return result;
+            }
         }
-
-@Override public int read(byte[] b, int off, int len) throws IOException
-{
-            if (left == 0)
-            {
-        return -1;
-    }
-
-    len = (int)Math.min(len, left);
-            int result = in.read(b, off, len);
-            if (result != -1)
-            {
-        left -= result;
-    }
-            return result;
-}
-
-@Override public synchronized void reset() throws IOException
-{
-            if (!in.markSupported()) {
-        throw new IOException("Mark not supported");
-    }
-            if (mark == -1)
-            {
-        throw new IOException("Mark not set");
-    }
-
-      in.reset();
-    left = mark;
-}
-
-@Override public long skip(long n) throws IOException
-{
-    n = Math.min(n, left);
-            long skipped = in.skip(n);
-    left -= skipped;
-            return skipped;
-}
-    }
-    */
     }
 }

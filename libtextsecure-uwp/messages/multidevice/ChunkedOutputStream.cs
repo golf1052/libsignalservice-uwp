@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace libtextsecure.messages.multidevice
     public class ChunkedOutputStream
     {
 
-        protected readonly IOutputStream output;
+        protected readonly Stream output;
 
         public ChunkedOutputStream(IOutputStream output)
         {

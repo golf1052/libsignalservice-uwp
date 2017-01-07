@@ -49,7 +49,7 @@ namespace libtextsecure.messages.multidevice
         {
             if (contact.getAvatar().HasValue)
             {
-                //writeStream(contact.getAvatar().get().getInputStream());
+                contact.getAvatar().Match(e => e, () => { throw new Exception(); }).getInputStream();
             }
         }
 
@@ -58,28 +58,27 @@ namespace libtextsecure.messages.multidevice
             TextSecureProtos.GroupDetails.Builder groupDetails = TextSecureProtos.GroupDetails.CreateBuilder();
             groupDetails.SetId(ByteString.CopyFrom(group.getId()));
 
-            /*if (group.getName().HasValue)
+            if (group.getName().HasValue)
             {
-                groupDetails.SetName(group.getName().get());
+                groupDetails.SetName(group.getName().Match(e => e, () => { throw new Exception(); }));
             }
 
             if (group.getAvatar().HasValue)
             {
-                TextSecureProtos.GroupDetails.Avatar.Builder avatarBuilder = TextSecureProtos.GroupDetails.Avatar.newBuilder();
-                avatarBuilder.setContentType(group.getAvatar().get().getContentType());
-                avatarBuilder.setLength((int)group.getAvatar().get().getLength());
-                groupDetails.setAvatar(avatarBuilder);
+                TextSecureProtos.GroupDetails.Types.Avatar.Builder avatarBuilder = TextSecureProtos.GroupDetails.Types.Avatar.CreateBuilder();
+                TextSecureAttachmentStream avatar = group.getAvatar().Match(e => e, () => { throw new Exception(); });
+                avatarBuilder.SetContentType(avatar.getContentType());
+                avatarBuilder.SetLength((uint)avatar.getLength());
+                groupDetails.SetAvatar(avatarBuilder);
             }
 
             groupDetails.AddRangeMembers(group.getMembers());
+            groupDetails.SetActive(group.isActive());
 
             byte[] serializedContactDetails = groupDetails.Build().ToByteArray();
 
             writeVarint32(serializedContactDetails.Length);
-            output.write(serializedContactDetails);*/
-            throw new NotImplementedException();
+            output.Write(serializedContactDetails, 0, serializedContactDetails.Length);
         }
-
-
     }
 }

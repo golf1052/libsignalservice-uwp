@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,49 +22,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Storage.Streams;
 using static libtextsecure.push.TextSecureProtos;
+using System.IO;
+using libtextsecure.push;
 
 namespace libtextsecure.messages.multidevice
 {
     public class DeviceGroupsInputStream : ChunkedInputStream
     {
 
-        public DeviceGroupsInputStream(IInputStream input)
+        public DeviceGroupsInputStream(Stream input)
         : base(input)
         {
         }
 
         public DeviceGroup read()// throws IOException
         {
-            /*long detailsLength = readRawVarint32();
+            long detailsLength = readRawVarint32();
             byte[] detailsSerialized = new byte[(int)detailsLength];
             Util.readFully(input, detailsSerialized);
 
-            GroupDetails details = GroupDetails.ParseFrom(detailsSerialized);
+            TextSecureProtos.GroupDetails details = TextSecureProtos.GroupDetails.ParseFrom(detailsSerialized);
 
             if (!details.HasId)
             {
-                throw new Exception("ID missing on group record!");
+                throw new IOException("ID missing on group record!");
             }
 
             byte[] id = details.Id.ToByteArray();
-            May<String> name = details.Name == null ? May<string>.NoValue : new May<string>(details.Name);
-            IList<String> members = details.MembersList;
+            May<string> name = new May<string>(details.Name);
+            IList<string> members = details.MembersList;
             May<TextSecureAttachmentStream> avatar = May<TextSecureAttachmentStream>.NoValue;
+            bool active = details.Active;
 
             if (details.HasAvatar)
             {
-                ulong avatarLength = details.Avatar.Length;
-                IInputStream avatarStream = new ChunkedInputStream.LimitedInputStream(input, avatarLength);
-                String avatarContentType = details.Avatar.ContentType;
+                long avatarLength = details.Avatar.Length;
+                Stream avatarStream = new ChunkedInputStream.LimitedInputStream(avatarLength);
+                string avatarContentType = details.Avatar.ContentType;
 
-                avatar = new May<TextSecureAttachmentStream>(new TextSecureAttachmentStream(avatarStream, avatarContentType, avatarLength));
+                avatar = new May<TextSecureAttachmentStream>(new TextSecureAttachmentStream(avatarStream.AsInputStream(), avatarContentType, (ulong)avatarLength, null));
             }
 
-            return new DeviceGroup(id, name, members, avatar);*/
-            throw new NotImplementedException();
+            return new DeviceGroup(id, name, members, avatar, active);
         }
-
     }
 }
