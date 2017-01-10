@@ -134,6 +134,7 @@
     <Compile Include="messages\multidevice\DeviceGroupsInputStream.cs" />
     <Compile Include="messages\multidevice\DeviceGroupsOutputStream.cs" />
     <Compile Include="messages\multidevice\DeviceInfo.cs" />
+    <Compile Include="messages\multidevice\ReadMessage.cs" />
     <Compile Include="messages\multidevice\RequestMessage.cs" />
     <Compile Include="messages\multidevice\SentTranscriptMessage.cs" />
     <Compile Include="messages\multidevice\TextSecureSyncMessage.cs" />
