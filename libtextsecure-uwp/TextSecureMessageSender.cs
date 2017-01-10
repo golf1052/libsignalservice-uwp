@@ -15,23 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Google.ProtocolBuffers;
-using libaxolotl.state;
-using libtextsecure.messages;
-using libtextsecure.crypto;
-using libtextsecure.push;
-using libtextsecure.push.exceptions;
-using libtextsecure.src.api.crypto;
-using libtextsecure.util;
-using Strilanc.Value;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using libaxolotl;
-using static libtextsecure.push.TextSecureProtos;
-using libaxolotl.util;
-using libtextsecure.messages.multidevice;
 using System.Threading.Tasks;
+using Google.ProtocolBuffers;
+using libsignal;
+using libsignal.state;
+using libsignal.util;
+using libtextsecure.crypto;
+using libtextsecure.messages;
+using libtextsecure.messages.multidevice;
+using libtextsecure.push;
+using libtextsecure.push.exceptions;
+using libtextsecure.util;
+using Strilanc.Value;
+using static libtextsecure.push.TextSecureProtos;
 
 namespace libtextsecure
 {
@@ -46,7 +45,7 @@ namespace libtextsecure
         private static String TAG = "TextSecureMessageSender";
 
         private readonly PushServiceSocket socket;
-        private readonly AxolotlStore store;
+        private readonly SignalProtocolStore store;
         private readonly TextSecureAddress localAddress;
         private readonly May<EventListener> eventListener;
         private readonly string userAgent;
@@ -64,7 +63,7 @@ namespace libtextsecure
          */
         public TextSecureMessageSender(String url, TrustStore trustStore,
                                        String user, String password,
-                                       AxolotlStore store,
+                                       SignalProtocolStore store,
                                        May<EventListener> eventListener, String userAgent)
         {
             this.socket = new PushServiceSocket(url, trustStore, new StaticCredentialsProvider(user, password, null), userAgent);
@@ -441,10 +440,10 @@ namespace libtextsecure
 
         private async Task<OutgoingPushMessage> getEncryptedMessage(PushServiceSocket socket, TextSecureAddress recipient, uint deviceId, byte[] plaintext, bool legacy)
         {
-            AxolotlAddress axolotlAddress = new AxolotlAddress(recipient.getNumber(), deviceId);
+            SignalProtocolAddress signalProtocolAddress = new SignalProtocolAddress(recipient.getNumber(), deviceId);
             TextSecureCipher cipher = new TextSecureCipher(localAddress, store);
 
-            if (!store.ContainsSession(axolotlAddress))
+            if (!store.ContainsSession(signalProtocolAddress))
             {
                 try
                 {
@@ -454,11 +453,11 @@ namespace libtextsecure
                     {
                         try
                         {
-                            AxolotlAddress preKeyAddress = new AxolotlAddress(recipient.getNumber(), preKey.getDeviceId());
+                            SignalProtocolAddress preKeyAddress = new SignalProtocolAddress(recipient.getNumber(), preKey.getDeviceId());
                             SessionBuilder sessionBuilder = new SessionBuilder(store, preKeyAddress);
                             sessionBuilder.process(preKey);
                         }
-                        catch (libaxolotl.exceptions.UntrustedIdentityException e)
+                        catch (libsignal.exceptions.UntrustedIdentityException e)
                         {
                             throw new UntrustedIdentityException("Untrusted identity key!", recipient.getNumber(), preKey.getIdentityKey());
                         }
@@ -475,7 +474,7 @@ namespace libtextsecure
                 }
             }
 
-            return cipher.encrypt(axolotlAddress, plaintext, legacy);
+            return cipher.encrypt(signalProtocolAddress, plaintext, legacy);
         }
 
         private async void handleMismatchedDevices(PushServiceSocket socket, TextSecureAddress recipient,
@@ -485,7 +484,7 @@ namespace libtextsecure
             {
                 foreach (uint extraDeviceId in mismatchedDevices.getExtraDevices())
                 {
-                    store.DeleteSession(new AxolotlAddress(recipient.getNumber(), extraDeviceId));
+                    store.DeleteSession(new SignalProtocolAddress(recipient.getNumber(), extraDeviceId));
                 }
 
                 foreach (uint missingDeviceId in mismatchedDevices.getMissingDevices())
@@ -494,10 +493,10 @@ namespace libtextsecure
 
                     try
                     {
-                        SessionBuilder sessionBuilder = new SessionBuilder(store, new AxolotlAddress(recipient.getNumber(), missingDeviceId));
+                        SessionBuilder sessionBuilder = new SessionBuilder(store, new SignalProtocolAddress(recipient.getNumber(), missingDeviceId));
                         sessionBuilder.process(preKey);
                     }
-                    catch (libaxolotl.exceptions.UntrustedIdentityException e)
+                    catch (libsignal.exceptions.UntrustedIdentityException e)
                     {
                         throw new UntrustedIdentityException("Untrusted identity key!", recipient.getNumber(), preKey.getIdentityKey());
                     }
@@ -513,7 +512,7 @@ namespace libtextsecure
         {
             foreach (uint staleDeviceId in staleDevices.getStaleDevices())
             {
-                store.DeleteSession(new AxolotlAddress(recipient.getNumber(), staleDeviceId));
+                store.DeleteSession(new SignalProtocolAddress(recipient.getNumber(), staleDeviceId));
             }
         }
 

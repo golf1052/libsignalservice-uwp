@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,23 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using libaxolotl;
-using libaxolotl.ecc;
-using libaxolotl.state;
-using libtextsecure.push;
-using libtextsecure.push.exceptions;
-using libtextsecure.util;
-using libtextsecure;
-using Newtonsoft.Json;
-using Strilanc.Value;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Web.Http;
+using libsignal;
+using libsignal.ecc;
+using libsignal.state;
 using libtextsecure.messages.multidevice;
+using libtextsecure.push.exceptions;
+using libtextsecure.util;
+using Newtonsoft.Json;
+using Strilanc.Value;
+using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 
 namespace libtextsecure.push

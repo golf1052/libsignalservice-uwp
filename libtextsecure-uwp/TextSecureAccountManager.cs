@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,20 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 using Google.ProtocolBuffers;
-using libaxolotl;
-using libaxolotl.ecc;
-using libaxolotl.state;
+using libsignal;
+using libsignal.ecc;
+using libsignal.state;
 using libtextsecure.crypto;
 using libtextsecure.messages.multidevice;
 using libtextsecure.push;
 using libtextsecure.util;
 using Strilanc.Value;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static libtextsecure.push.ProvisioningProtos;
 
 namespace libtextsecure

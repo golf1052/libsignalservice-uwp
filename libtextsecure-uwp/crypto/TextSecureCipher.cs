@@ -15,20 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.Collections.Generic;
 using Google.ProtocolBuffers;
-using libaxolotl;
-using libaxolotl.protocol;
-using libaxolotl.state;
+using libsignal;
+using libsignal.protocol;
+using libsignal.state;
 using libtextsecure.messages;
 using libtextsecure.messages.multidevice;
 using libtextsecure.push;
 using libtextsecure.util;
 using Strilanc.Value;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static libtextsecure.push.TextSecureProtos;
 
 namespace libtextsecure.crypto
@@ -41,18 +38,18 @@ namespace libtextsecure.crypto
     public class TextSecureCipher
     {
 
-        private readonly AxolotlStore axolotlStore;
+        private readonly SignalProtocolStore signalProtocolStore;
         private readonly TextSecureAddress localAddress;
 
-        public TextSecureCipher(TextSecureAddress localAddress, AxolotlStore axolotlStore)
+        public TextSecureCipher(TextSecureAddress localAddress, SignalProtocolStore signalProtocolStore)
         {
-            this.axolotlStore = axolotlStore;
+            this.signalProtocolStore = signalProtocolStore;
             this.localAddress = localAddress;
         }
 
-        public OutgoingPushMessage encrypt(AxolotlAddress destination, byte[] unpaddedMessage, bool legacy)
+        public OutgoingPushMessage encrypt(SignalProtocolAddress destination, byte[] unpaddedMessage, bool legacy)
         {
-            SessionCipher sessionCipher = new SessionCipher(axolotlStore, destination);
+            SessionCipher sessionCipher = new SessionCipher(signalProtocolStore, destination);
             PushTransportDetails transportDetails = new PushTransportDetails(sessionCipher.getSessionVersion());
             CiphertextMessage message = sessionCipher.encrypt(transportDetails.getPaddedMessageBody(unpaddedMessage));
             uint remoteRegistrationId = sessionCipher.getRemoteRegistrationId();
@@ -122,18 +119,18 @@ namespace libtextsecure.crypto
         private byte[] decrypt(TextSecureEnvelope envelope, byte[] ciphertext)
 
         {
-            AxolotlAddress sourceAddress = new AxolotlAddress(envelope.getSource(), envelope.getSourceDevice());
-            SessionCipher sessionCipher = new SessionCipher(axolotlStore, sourceAddress);
+            SignalProtocolAddress sourceAddress = new SignalProtocolAddress(envelope.getSource(), envelope.getSourceDevice());
+            SessionCipher sessionCipher = new SessionCipher(signalProtocolStore, sourceAddress);
 
             byte[] paddedMessage;
 
-            if (envelope.isPreKeyWhisperMessage())
+            if (envelope.isPreKeySignalMessage())
             {
-                paddedMessage = sessionCipher.decrypt(new PreKeyWhisperMessage(ciphertext));
+                paddedMessage = sessionCipher.decrypt(new PreKeySignalMessage(ciphertext));
             }
-            else if (envelope.isWhisperMessage())
+            else if (envelope.isSignalMessage())
             {
-                paddedMessage = sessionCipher.decrypt(new WhisperMessage(ciphertext));
+                paddedMessage = sessionCipher.decrypt(new SignalMessage(ciphertext));
             }
             else
             {

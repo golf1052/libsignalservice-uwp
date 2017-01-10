@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,17 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.Linq;
 using Google.ProtocolBuffers;
-using libaxolotl;
-using libaxolotl.util;
+using libsignal;
+using libsignal.util;
 using libtextsecure.push;
 using libtextsecure.util;
 using Strilanc.Value;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static libtextsecure.push.TextSecureProtos;
 
 namespace libtextsecure.messages
@@ -193,7 +190,7 @@ namespace libtextsecure.messages
         /**
          * @return true if the containing message is a {@link org.whispersystems.libaxolotl.protocol.WhisperMessage}
          */
-        public bool isWhisperMessage()
+        public bool isSignalMessage()
         {
             return envelope.Type == Envelope.Types.Type.CIPHERTEXT;
         }
@@ -201,7 +198,7 @@ namespace libtextsecure.messages
         /**
          * @return true if the containing message is a {@link org.whispersystems.libaxolotl.protocol.PreKeyWhisperMessage}
          */
-        public bool isPreKeyWhisperMessage()
+        public bool isPreKeySignalMessage()
         {
             return envelope.Type == Envelope.Types.Type.PREKEY_BUNDLE;
         }
