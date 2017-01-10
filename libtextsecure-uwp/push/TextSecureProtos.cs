@@ -32,6 +32,8 @@ namespace libtextsecure.push {
     private static pb::FieldAccess.FieldAccessorTable<global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Groups, global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Groups.Builder> internal__static_textsecure_SyncMessage_Groups__FieldAccessorTable;
     private static pbd::MessageDescriptor internal__static_textsecure_SyncMessage_Request__Descriptor;
     private static pb::FieldAccess.FieldAccessorTable<global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Request, global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Request.Builder> internal__static_textsecure_SyncMessage_Request__FieldAccessorTable;
+    private static pbd::MessageDescriptor internal__static_textsecure_SyncMessage_Read__Descriptor;
+    private static pb::FieldAccess.FieldAccessorTable<global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read, global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read.Builder> internal__static_textsecure_SyncMessage_Read__FieldAccessorTable;
     private static pbd::MessageDescriptor internal__static_textsecure_AttachmentPointer__Descriptor;
     private static pb::FieldAccess.FieldAccessorTable<global::libtextsecure.push.TextSecureProtos.AttachmentPointer, global::libtextsecure.push.TextSecureProtos.AttachmentPointer.Builder> internal__static_textsecure_AttachmentPointer__FieldAccessorTable;
     private static pbd::MessageDescriptor internal__static_textsecure_GroupContext__Descriptor;
@@ -66,34 +68,36 @@ namespace libtextsecure.push {
             "BGJvZHkYASABKAkSMgoLYXR0YWNobWVudHMYAiADKAsyHS50ZXh0c2VjdXJl", 
             "LkF0dGFjaG1lbnRQb2ludGVyEicKBWdyb3VwGAMgASgLMhgudGV4dHNlY3Vy", 
             "ZS5Hcm91cENvbnRleHQSDQoFZmxhZ3MYBCABKA0iGAoFRmxhZ3MSDwoLRU5E", 
-            "X1NFU1NJT04QASKHBAoLU3luY01lc3NhZ2USKgoEc2VudBgBIAEoCzIcLnRl", 
+            "X1NFU1NJT04QASLeBAoLU3luY01lc3NhZ2USKgoEc2VudBgBIAEoCzIcLnRl", 
             "eHRzZWN1cmUuU3luY01lc3NhZ2UuU2VudBIyCghjb250YWN0cxgCIAEoCzIg", 
             "LnRleHRzZWN1cmUuU3luY01lc3NhZ2UuQ29udGFjdHMSLgoGZ3JvdXBzGAMg", 
             "ASgLMh4udGV4dHNlY3VyZS5TeW5jTWVzc2FnZS5Hcm91cHMSMAoHcmVxdWVz", 
-            "dBgEIAEoCzIfLnRleHRzZWN1cmUuU3luY01lc3NhZ2UuUmVxdWVzdBpYCgRT", 
-            "ZW50EhMKC2Rlc3RpbmF0aW9uGAEgASgJEhEKCXRpbWVzdGFtcBgCIAEoBBIo", 
-            "CgdtZXNzYWdlGAMgASgLMhcudGV4dHNlY3VyZS5EYXRhTWVzc2FnZRo3CghD", 
-            "b250YWN0cxIrCgRibG9iGAEgASgLMh0udGV4dHNlY3VyZS5BdHRhY2htZW50", 
-            "UG9pbnRlcho1CgZHcm91cHMSKwoEYmxvYhgBIAEoCzIdLnRleHRzZWN1cmUu", 
-            "QXR0YWNobWVudFBvaW50ZXIabAoHUmVxdWVzdBIyCgR0eXBlGAEgASgOMiQu", 
-            "dGV4dHNlY3VyZS5TeW5jTWVzc2FnZS5SZXF1ZXN0LlR5cGUiLQoEVHlwZRIL", 
-            "CgdVTktOT1dOEAASDAoIQ09OVEFDVFMQARIKCgZHUk9VUFMQAiJiChFBdHRh", 
-            "Y2htZW50UG9pbnRlchIKCgJpZBgBIAEoBhITCgtjb250ZW50VHlwZRgCIAEo", 
-            "CRILCgNrZXkYAyABKAwSDAoEc2l6ZRgEIAEoDRIRCgl0aHVtYm5haWwYBSAB", 
-            "KAwizQEKDEdyb3VwQ29udGV4dBIKCgJpZBgBIAEoDBIrCgR0eXBlGAIgASgO", 
-            "Mh0udGV4dHNlY3VyZS5Hcm91cENvbnRleHQuVHlwZRIMCgRuYW1lGAMgASgJ", 
-            "Eg8KB21lbWJlcnMYBCADKAkSLQoGYXZhdGFyGAUgASgLMh0udGV4dHNlY3Vy", 
-            "ZS5BdHRhY2htZW50UG9pbnRlciI2CgRUeXBlEgsKB1VOS05PV04QABIKCgZV", 
-            "UERBVEUQARILCgdERUxJVkVSEAISCAoEUVVJVBADIpABCg5Db250YWN0RGV0", 
-            "YWlscxIOCgZudW1iZXIYASABKAkSDAoEbmFtZRgCIAEoCRIxCgZhdmF0YXIY", 
-            "AyABKAsyIS50ZXh0c2VjdXJlLkNvbnRhY3REZXRhaWxzLkF2YXRhchotCgZB", 
-            "dmF0YXISEwoLY29udGVudFR5cGUYASABKAkSDgoGbGVuZ3RoGAIgASgNIq8B", 
-            "CgxHcm91cERldGFpbHMSCgoCaWQYASABKAwSDAoEbmFtZRgCIAEoCRIPCgdt", 
-            "ZW1iZXJzGAMgAygJEi8KBmF2YXRhchgEIAEoCzIfLnRleHRzZWN1cmUuR3Jv", 
-            "dXBEZXRhaWxzLkF2YXRhchIUCgZhY3RpdmUYBSABKAg6BHRydWUaLQoGQXZh", 
-            "dGFyEhMKC2NvbnRlbnRUeXBlGAEgASgJEg4KBmxlbmd0aBgCIAEoDUI/Citv", 
-            "cmcud2hpc3BlcnN5c3RlbXMudGV4dHNlY3VyZS5pbnRlcm5hbC5wdXNoQhBU", 
-          "ZXh0U2VjdXJlUHJvdG9z"));
+            "dBgEIAEoCzIfLnRleHRzZWN1cmUuU3luY01lc3NhZ2UuUmVxdWVzdBIqCgRy", 
+            "ZWFkGAUgAygLMhwudGV4dHNlY3VyZS5TeW5jTWVzc2FnZS5SZWFkGlgKBFNl", 
+            "bnQSEwoLZGVzdGluYXRpb24YASABKAkSEQoJdGltZXN0YW1wGAIgASgEEigK", 
+            "B21lc3NhZ2UYAyABKAsyFy50ZXh0c2VjdXJlLkRhdGFNZXNzYWdlGjcKCENv", 
+            "bnRhY3RzEisKBGJsb2IYASABKAsyHS50ZXh0c2VjdXJlLkF0dGFjaG1lbnRQ", 
+            "b2ludGVyGjUKBkdyb3VwcxIrCgRibG9iGAEgASgLMh0udGV4dHNlY3VyZS5B", 
+            "dHRhY2htZW50UG9pbnRlchpsCgdSZXF1ZXN0EjIKBHR5cGUYASABKA4yJC50", 
+            "ZXh0c2VjdXJlLlN5bmNNZXNzYWdlLlJlcXVlc3QuVHlwZSItCgRUeXBlEgsK", 
+            "B1VOS05PV04QABIMCghDT05UQUNUUxABEgoKBkdST1VQUxACGikKBFJlYWQS", 
+            "DgoGc2VuZGVyGAEgASgJEhEKCXRpbWVzdGFtcBgCIAEoBCJiChFBdHRhY2ht", 
+            "ZW50UG9pbnRlchIKCgJpZBgBIAEoBhITCgtjb250ZW50VHlwZRgCIAEoCRIL", 
+            "CgNrZXkYAyABKAwSDAoEc2l6ZRgEIAEoDRIRCgl0aHVtYm5haWwYBSABKAwi", 
+            "zQEKDEdyb3VwQ29udGV4dBIKCgJpZBgBIAEoDBIrCgR0eXBlGAIgASgOMh0u", 
+            "dGV4dHNlY3VyZS5Hcm91cENvbnRleHQuVHlwZRIMCgRuYW1lGAMgASgJEg8K", 
+            "B21lbWJlcnMYBCADKAkSLQoGYXZhdGFyGAUgASgLMh0udGV4dHNlY3VyZS5B", 
+            "dHRhY2htZW50UG9pbnRlciI2CgRUeXBlEgsKB1VOS05PV04QABIKCgZVUERB", 
+            "VEUQARILCgdERUxJVkVSEAISCAoEUVVJVBADIpABCg5Db250YWN0RGV0YWls", 
+            "cxIOCgZudW1iZXIYASABKAkSDAoEbmFtZRgCIAEoCRIxCgZhdmF0YXIYAyAB", 
+            "KAsyIS50ZXh0c2VjdXJlLkNvbnRhY3REZXRhaWxzLkF2YXRhchotCgZBdmF0", 
+            "YXISEwoLY29udGVudFR5cGUYASABKAkSDgoGbGVuZ3RoGAIgASgNIq8BCgxH", 
+            "cm91cERldGFpbHMSCgoCaWQYASABKAwSDAoEbmFtZRgCIAEoCRIPCgdtZW1i", 
+            "ZXJzGAMgAygJEi8KBmF2YXRhchgEIAEoCzIfLnRleHRzZWN1cmUuR3JvdXBE", 
+            "ZXRhaWxzLkF2YXRhchIUCgZhY3RpdmUYBSABKAg6BHRydWUaLQoGQXZhdGFy", 
+            "EhMKC2NvbnRlbnRUeXBlGAEgASgJEg4KBmxlbmd0aBgCIAEoDUI/Citvcmcu", 
+            "d2hpc3BlcnN5c3RlbXMudGV4dHNlY3VyZS5pbnRlcm5hbC5wdXNoQhBUZXh0", 
+          "U2VjdXJlUHJvdG9z"));
       pbd::FileDescriptor.InternalDescriptorAssigner assigner = delegate(pbd::FileDescriptor root) {
         descriptor = root;
         internal__static_textsecure_Envelope__Descriptor = Descriptor.MessageTypes[0];
@@ -111,7 +115,7 @@ namespace libtextsecure.push {
         internal__static_textsecure_SyncMessage__Descriptor = Descriptor.MessageTypes[3];
         internal__static_textsecure_SyncMessage__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::libtextsecure.push.TextSecureProtos.SyncMessage, global::libtextsecure.push.TextSecureProtos.SyncMessage.Builder>(internal__static_textsecure_SyncMessage__Descriptor,
-                new string[] { "Sent", "Contacts", "Groups", "Request", });
+                new string[] { "Sent", "Contacts", "Groups", "Request", "Read", });
         internal__static_textsecure_SyncMessage_Sent__Descriptor = internal__static_textsecure_SyncMessage__Descriptor.NestedTypes[0];
         internal__static_textsecure_SyncMessage_Sent__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Sent, global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Sent.Builder>(internal__static_textsecure_SyncMessage_Sent__Descriptor,
@@ -128,6 +132,10 @@ namespace libtextsecure.push {
         internal__static_textsecure_SyncMessage_Request__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Request, global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Request.Builder>(internal__static_textsecure_SyncMessage_Request__Descriptor,
                 new string[] { "Type", });
+        internal__static_textsecure_SyncMessage_Read__Descriptor = internal__static_textsecure_SyncMessage__Descriptor.NestedTypes[4];
+        internal__static_textsecure_SyncMessage_Read__FieldAccessorTable = 
+            new pb::FieldAccess.FieldAccessorTable<global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read, global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read.Builder>(internal__static_textsecure_SyncMessage_Read__Descriptor,
+                new string[] { "Sender", "Timestamp", });
         internal__static_textsecure_AttachmentPointer__Descriptor = Descriptor.MessageTypes[4];
         internal__static_textsecure_AttachmentPointer__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::libtextsecure.push.TextSecureProtos.AttachmentPointer, global::libtextsecure.push.TextSecureProtos.AttachmentPointer.Builder>(internal__static_textsecure_AttachmentPointer__Descriptor,
@@ -1568,8 +1576,8 @@ namespace libtextsecure.push {
     public sealed partial class SyncMessage : pb::GeneratedMessage<SyncMessage, SyncMessage.Builder> {
       private SyncMessage() { }
       private static readonly SyncMessage defaultInstance = new SyncMessage().MakeReadOnly();
-      private static readonly string[] _syncMessageFieldNames = new string[] { "contacts", "groups", "request", "sent" };
-      private static readonly uint[] _syncMessageFieldTags = new uint[] { 18, 26, 34, 10 };
+      private static readonly string[] _syncMessageFieldNames = new string[] { "contacts", "groups", "read", "request", "sent" };
+      private static readonly uint[] _syncMessageFieldTags = new uint[] { 18, 26, 42, 34, 10 };
       public static SyncMessage DefaultInstance {
         get { return defaultInstance; }
       }
@@ -2878,6 +2886,328 @@ namespace libtextsecure.push {
           }
         }
         
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public sealed partial class Read : pb::GeneratedMessage<Read, Read.Builder> {
+          private Read() { }
+          private static readonly Read defaultInstance = new Read().MakeReadOnly();
+          private static readonly string[] _readFieldNames = new string[] { "sender", "timestamp" };
+          private static readonly uint[] _readFieldTags = new uint[] { 10, 16 };
+          public static Read DefaultInstance {
+            get { return defaultInstance; }
+          }
+          
+          public override Read DefaultInstanceForType {
+            get { return DefaultInstance; }
+          }
+          
+          protected override Read ThisMessage {
+            get { return this; }
+          }
+          
+          public static pbd::MessageDescriptor Descriptor {
+            get { return global::libtextsecure.push.TextSecureProtos.internal__static_textsecure_SyncMessage_Read__Descriptor; }
+          }
+          
+          protected override pb::FieldAccess.FieldAccessorTable<Read, Read.Builder> InternalFieldAccessors {
+            get { return global::libtextsecure.push.TextSecureProtos.internal__static_textsecure_SyncMessage_Read__FieldAccessorTable; }
+          }
+          
+          public const int SenderFieldNumber = 1;
+          private bool hasSender;
+          private string sender_ = "";
+          public bool HasSender {
+            get { return hasSender; }
+          }
+          public string Sender {
+            get { return sender_; }
+          }
+          
+          public const int TimestampFieldNumber = 2;
+          private bool hasTimestamp;
+          private ulong timestamp_;
+          public bool HasTimestamp {
+            get { return hasTimestamp; }
+          }
+          [global::System.CLSCompliant(false)]
+          public ulong Timestamp {
+            get { return timestamp_; }
+          }
+          
+          public override bool IsInitialized {
+            get {
+              return true;
+            }
+          }
+          
+          public override void WriteTo(pb::ICodedOutputStream output) {
+            CalcSerializedSize();
+            string[] field_names = _readFieldNames;
+            if (hasSender) {
+              output.WriteString(1, field_names[0], Sender);
+            }
+            if (hasTimestamp) {
+              output.WriteUInt64(2, field_names[1], Timestamp);
+            }
+            UnknownFields.WriteTo(output);
+          }
+          
+          private int memoizedSerializedSize = -1;
+          public override int SerializedSize {
+            get {
+              int size = memoizedSerializedSize;
+              if (size != -1) return size;
+              return CalcSerializedSize();
+            }
+          }
+          
+          private int CalcSerializedSize() {
+            int size = memoizedSerializedSize;
+            if (size != -1) return size;
+            
+            size = 0;
+            if (hasSender) {
+              size += pb::CodedOutputStream.ComputeStringSize(1, Sender);
+            }
+            if (hasTimestamp) {
+              size += pb::CodedOutputStream.ComputeUInt64Size(2, Timestamp);
+            }
+            size += UnknownFields.SerializedSize;
+            memoizedSerializedSize = size;
+            return size;
+          }
+          public static Read ParseFrom(pb::ByteString data) {
+            return ((Builder) CreateBuilder().MergeFrom(data)).BuildParsed();
+          }
+          public static Read ParseFrom(pb::ByteString data, pb::ExtensionRegistry extensionRegistry) {
+            return ((Builder) CreateBuilder().MergeFrom(data, extensionRegistry)).BuildParsed();
+          }
+          public static Read ParseFrom(byte[] data) {
+            return ((Builder) CreateBuilder().MergeFrom(data)).BuildParsed();
+          }
+          public static Read ParseFrom(byte[] data, pb::ExtensionRegistry extensionRegistry) {
+            return ((Builder) CreateBuilder().MergeFrom(data, extensionRegistry)).BuildParsed();
+          }
+          public static Read ParseFrom(global::System.IO.Stream input) {
+            return ((Builder) CreateBuilder().MergeFrom(input)).BuildParsed();
+          }
+          public static Read ParseFrom(global::System.IO.Stream input, pb::ExtensionRegistry extensionRegistry) {
+            return ((Builder) CreateBuilder().MergeFrom(input, extensionRegistry)).BuildParsed();
+          }
+          public static Read ParseDelimitedFrom(global::System.IO.Stream input) {
+            return CreateBuilder().MergeDelimitedFrom(input).BuildParsed();
+          }
+          public static Read ParseDelimitedFrom(global::System.IO.Stream input, pb::ExtensionRegistry extensionRegistry) {
+            return CreateBuilder().MergeDelimitedFrom(input, extensionRegistry).BuildParsed();
+          }
+          public static Read ParseFrom(pb::ICodedInputStream input) {
+            return ((Builder) CreateBuilder().MergeFrom(input)).BuildParsed();
+          }
+          public static Read ParseFrom(pb::ICodedInputStream input, pb::ExtensionRegistry extensionRegistry) {
+            return ((Builder) CreateBuilder().MergeFrom(input, extensionRegistry)).BuildParsed();
+          }
+          private Read MakeReadOnly() {
+            return this;
+          }
+          
+          public static Builder CreateBuilder() { return new Builder(); }
+          public override Builder ToBuilder() { return CreateBuilder(this); }
+          public override Builder CreateBuilderForType() { return new Builder(); }
+          public static Builder CreateBuilder(Read prototype) {
+            return new Builder(prototype);
+          }
+          
+          [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+          public sealed partial class Builder : pb::GeneratedBuilder<Read, Builder> {
+            protected override Builder ThisBuilder {
+              get { return this; }
+            }
+            public Builder() {
+              result = DefaultInstance;
+              resultIsReadOnly = true;
+            }
+            internal Builder(Read cloneFrom) {
+              result = cloneFrom;
+              resultIsReadOnly = true;
+            }
+            
+            private bool resultIsReadOnly;
+            private Read result;
+            
+            private Read PrepareBuilder() {
+              if (resultIsReadOnly) {
+                Read original = result;
+                result = new Read();
+                resultIsReadOnly = false;
+                MergeFrom(original);
+              }
+              return result;
+            }
+            
+            public override bool IsInitialized {
+              get { return result.IsInitialized; }
+            }
+            
+            protected override Read MessageBeingBuilt {
+              get { return PrepareBuilder(); }
+            }
+            
+            public override Builder Clear() {
+              result = DefaultInstance;
+              resultIsReadOnly = true;
+              return this;
+            }
+            
+            public override Builder Clone() {
+              if (resultIsReadOnly) {
+                return new Builder(result);
+              } else {
+                return new Builder().MergeFrom(result);
+              }
+            }
+            
+            public override pbd::MessageDescriptor DescriptorForType {
+              get { return global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read.Descriptor; }
+            }
+            
+            public override Read DefaultInstanceForType {
+              get { return global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read.DefaultInstance; }
+            }
+            
+            public override Read BuildPartial() {
+              if (resultIsReadOnly) {
+                return result;
+              }
+              resultIsReadOnly = true;
+              return result.MakeReadOnly();
+            }
+            
+            public override Builder MergeFrom(pb::IMessage other) {
+              if (other is Read) {
+                return MergeFrom((Read) other);
+              } else {
+                base.MergeFrom(other);
+                return this;
+              }
+            }
+            
+            public override Builder MergeFrom(Read other) {
+              if (other == global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read.DefaultInstance) return this;
+              PrepareBuilder();
+              if (other.HasSender) {
+                Sender = other.Sender;
+              }
+              if (other.HasTimestamp) {
+                Timestamp = other.Timestamp;
+              }
+              this.MergeUnknownFields(other.UnknownFields);
+              return this;
+            }
+            
+            public override Builder MergeFrom(pb::ICodedInputStream input) {
+              return MergeFrom(input, pb::ExtensionRegistry.Empty);
+            }
+            
+            public override Builder MergeFrom(pb::ICodedInputStream input, pb::ExtensionRegistry extensionRegistry) {
+              PrepareBuilder();
+              pb::UnknownFieldSet.Builder unknownFields = null;
+              uint tag;
+              string field_name;
+              while (input.ReadTag(out tag, out field_name)) {
+                if(tag == 0 && field_name != null) {
+                  int field_ordinal = global::System.Array.BinarySearch(_readFieldNames, field_name, global::System.StringComparer.Ordinal);
+                  if(field_ordinal >= 0)
+                    tag = _readFieldTags[field_ordinal];
+                  else {
+                    if (unknownFields == null) {
+                      unknownFields = pb::UnknownFieldSet.CreateBuilder(this.UnknownFields);
+                    }
+                    ParseUnknownField(input, unknownFields, extensionRegistry, tag, field_name);
+                    continue;
+                  }
+                }
+                switch (tag) {
+                  case 0: {
+                    throw pb::InvalidProtocolBufferException.InvalidTag();
+                  }
+                  default: {
+                    if (pb::WireFormat.IsEndGroupTag(tag)) {
+                      if (unknownFields != null) {
+                        this.UnknownFields = unknownFields.Build();
+                      }
+                      return this;
+                    }
+                    if (unknownFields == null) {
+                      unknownFields = pb::UnknownFieldSet.CreateBuilder(this.UnknownFields);
+                    }
+                    ParseUnknownField(input, unknownFields, extensionRegistry, tag, field_name);
+                    break;
+                  }
+                  case 10: {
+                    result.hasSender = input.ReadString(ref result.sender_);
+                    break;
+                  }
+                  case 16: {
+                    result.hasTimestamp = input.ReadUInt64(ref result.timestamp_);
+                    break;
+                  }
+                }
+              }
+              
+              if (unknownFields != null) {
+                this.UnknownFields = unknownFields.Build();
+              }
+              return this;
+            }
+            
+            
+            public bool HasSender {
+              get { return result.hasSender; }
+            }
+            public string Sender {
+              get { return result.Sender; }
+              set { SetSender(value); }
+            }
+            public Builder SetSender(string value) {
+              pb::ThrowHelper.ThrowIfNull(value, "value");
+              PrepareBuilder();
+              result.hasSender = true;
+              result.sender_ = value;
+              return this;
+            }
+            public Builder ClearSender() {
+              PrepareBuilder();
+              result.hasSender = false;
+              result.sender_ = "";
+              return this;
+            }
+            
+            public bool HasTimestamp {
+              get { return result.hasTimestamp; }
+            }
+            [global::System.CLSCompliant(false)]
+            public ulong Timestamp {
+              get { return result.Timestamp; }
+              set { SetTimestamp(value); }
+            }
+            [global::System.CLSCompliant(false)]
+            public Builder SetTimestamp(ulong value) {
+              PrepareBuilder();
+              result.hasTimestamp = true;
+              result.timestamp_ = value;
+              return this;
+            }
+            public Builder ClearTimestamp() {
+              PrepareBuilder();
+              result.hasTimestamp = false;
+              result.timestamp_ = 0UL;
+              return this;
+            }
+          }
+          static Read() {
+            object.ReferenceEquals(global::libtextsecure.push.TextSecureProtos.Descriptor, null);
+          }
+        }
+        
       }
       #endregion
       
@@ -2921,6 +3251,18 @@ namespace libtextsecure.push {
         get { return request_ ?? global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Request.DefaultInstance; }
       }
       
+      public const int ReadFieldNumber = 5;
+      private pbc::PopsicleList<global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read> read_ = new pbc::PopsicleList<global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read>();
+      public scg::IList<global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read> ReadList {
+        get { return read_; }
+      }
+      public int ReadCount {
+        get { return read_.Count; }
+      }
+      public global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read GetRead(int index) {
+        return read_[index];
+      }
+      
       public override bool IsInitialized {
         get {
           return true;
@@ -2931,7 +3273,7 @@ namespace libtextsecure.push {
         CalcSerializedSize();
         string[] field_names = _syncMessageFieldNames;
         if (hasSent) {
-          output.WriteMessage(1, field_names[3], Sent);
+          output.WriteMessage(1, field_names[4], Sent);
         }
         if (hasContacts) {
           output.WriteMessage(2, field_names[0], Contacts);
@@ -2940,7 +3282,10 @@ namespace libtextsecure.push {
           output.WriteMessage(3, field_names[1], Groups);
         }
         if (hasRequest) {
-          output.WriteMessage(4, field_names[2], Request);
+          output.WriteMessage(4, field_names[3], Request);
+        }
+        if (read_.Count > 0) {
+          output.WriteMessageArray(5, field_names[2], read_);
         }
         UnknownFields.WriteTo(output);
       }
@@ -2970,6 +3315,9 @@ namespace libtextsecure.push {
         }
         if (hasRequest) {
           size += pb::CodedOutputStream.ComputeMessageSize(4, Request);
+        }
+        foreach (global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read element in ReadList) {
+          size += pb::CodedOutputStream.ComputeMessageSize(5, element);
         }
         size += UnknownFields.SerializedSize;
         memoizedSerializedSize = size;
@@ -3006,6 +3354,7 @@ namespace libtextsecure.push {
         return ((Builder) CreateBuilder().MergeFrom(input, extensionRegistry)).BuildParsed();
       }
       private SyncMessage MakeReadOnly() {
+        read_.MakeReadOnly();
         return this;
       }
       
@@ -3105,6 +3454,9 @@ namespace libtextsecure.push {
           if (other.HasRequest) {
             MergeRequest(other.Request);
           }
+          if (other.read_.Count != 0) {
+            result.read_.Add(other.read_);
+          }
           this.MergeUnknownFields(other.UnknownFields);
           return this;
         }
@@ -3182,6 +3534,10 @@ namespace libtextsecure.push {
                 }
                 input.ReadMessage(subBuilder, extensionRegistry);
                 Request = subBuilder.BuildPartial();
+                break;
+              }
+              case 42: {
+                input.ReadMessageArray(tag, field_name, result.read_, global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read.DefaultInstance, extensionRegistry);
                 break;
               }
             }
@@ -3351,6 +3707,50 @@ namespace libtextsecure.push {
           PrepareBuilder();
           result.hasRequest = false;
           result.request_ = null;
+          return this;
+        }
+        
+        public pbc::IPopsicleList<global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read> ReadList {
+          get { return PrepareBuilder().read_; }
+        }
+        public int ReadCount {
+          get { return result.ReadCount; }
+        }
+        public global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read GetRead(int index) {
+          return result.GetRead(index);
+        }
+        public Builder SetRead(int index, global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read value) {
+          pb::ThrowHelper.ThrowIfNull(value, "value");
+          PrepareBuilder();
+          result.read_[index] = value;
+          return this;
+        }
+        public Builder SetRead(int index, global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read.Builder builderForValue) {
+          pb::ThrowHelper.ThrowIfNull(builderForValue, "builderForValue");
+          PrepareBuilder();
+          result.read_[index] = builderForValue.Build();
+          return this;
+        }
+        public Builder AddRead(global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read value) {
+          pb::ThrowHelper.ThrowIfNull(value, "value");
+          PrepareBuilder();
+          result.read_.Add(value);
+          return this;
+        }
+        public Builder AddRead(global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read.Builder builderForValue) {
+          pb::ThrowHelper.ThrowIfNull(builderForValue, "builderForValue");
+          PrepareBuilder();
+          result.read_.Add(builderForValue.Build());
+          return this;
+        }
+        public Builder AddRangeRead(scg::IEnumerable<global::libtextsecure.push.TextSecureProtos.SyncMessage.Types.Read> values) {
+          PrepareBuilder();
+          result.read_.Add(values);
+          return this;
+        }
+        public Builder ClearRead() {
+          PrepareBuilder();
+          result.read_.Clear();
           return this;
         }
       }

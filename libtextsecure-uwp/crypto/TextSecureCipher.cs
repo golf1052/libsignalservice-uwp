@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -177,6 +177,18 @@ namespace libtextsecure.crypto
             if (content.HasRequest)
             {
                 return TextSecureSyncMessage.forRequest(new RequestMessage(content.Request));
+            }
+
+            if (content.ReadList.Count > 0)
+            {
+                List<ReadMessage> readMessages = new List<ReadMessage>();
+
+                foreach (SyncMessage.Types.Read read in content.ReadList)
+                {
+                    readMessages.Add(new ReadMessage(read.Sender, (long)read.Timestamp));
+                }
+
+                return TextSecureSyncMessage.forRead(readMessages);
             }
 
             return TextSecureSyncMessage.empty();

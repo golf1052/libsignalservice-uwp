@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,16 +31,19 @@ namespace libtextsecure.messages.multidevice
         private readonly May<TextSecureAttachment> contacts;
         private readonly May<TextSecureAttachment> groups;
         private readonly May<RequestMessage> request;
+        private readonly May<List<ReadMessage>> reads;
 
         private TextSecureSyncMessage(May<SentTranscriptMessage> sent,
                                       May<TextSecureAttachment> contacts,
                                       May<TextSecureAttachment> groups,
-                                      May<RequestMessage> request)
+                                      May<RequestMessage> request,
+                                      May<List<ReadMessage>> reads)
         {
             this.sent = sent;
             this.contacts = contacts;
             this.groups = groups;
             this.request = request;
+            this.reads = reads;
         }
 
         public static TextSecureSyncMessage forSentTranscript(SentTranscriptMessage sent)
@@ -48,7 +51,8 @@ namespace libtextsecure.messages.multidevice
             return new TextSecureSyncMessage(new May<SentTranscriptMessage>(sent),
                 May<TextSecureAttachment>.NoValue,
                 May<TextSecureAttachment>.NoValue,
-                May<RequestMessage>.NoValue);
+                May<RequestMessage>.NoValue,
+                May<List<ReadMessage>>.NoValue);
         }
 
         public static TextSecureSyncMessage forContacts(TextSecureAttachment contacts)
@@ -56,7 +60,8 @@ namespace libtextsecure.messages.multidevice
             return new TextSecureSyncMessage(May<SentTranscriptMessage>.NoValue,
                                              new May<TextSecureAttachment>(contacts),
                                              May<TextSecureAttachment>.NoValue,
-                                             May<RequestMessage>.NoValue);
+                                             May<RequestMessage>.NoValue,
+                                             May<List<ReadMessage>>.NoValue);
         }
 
         public static TextSecureSyncMessage forGroups(TextSecureAttachment groups)
@@ -64,7 +69,8 @@ namespace libtextsecure.messages.multidevice
             return new TextSecureSyncMessage(May<SentTranscriptMessage>.NoValue,
                                              May<TextSecureAttachment>.NoValue,
                                              new May<TextSecureAttachment>(groups),
-                                             May<RequestMessage>.NoValue);
+                                             May<RequestMessage>.NoValue,
+                                             May<List<ReadMessage>>.NoValue);
         }
 
         public static TextSecureSyncMessage forRequest(RequestMessage request)
@@ -72,7 +78,29 @@ namespace libtextsecure.messages.multidevice
             return new TextSecureSyncMessage(May<SentTranscriptMessage>.NoValue,
                                              May<TextSecureAttachment>.NoValue,
                                              May<TextSecureAttachment>.NoValue,
-                                             new May<RequestMessage>(request));
+                                             new May<RequestMessage>(request),
+                                             May<List<ReadMessage>>.NoValue);
+        }
+
+        public static TextSecureSyncMessage forRead(List<ReadMessage> reads)
+        {
+            return new TextSecureSyncMessage(May<SentTranscriptMessage>.NoValue,
+                                             May<TextSecureAttachment>.NoValue,
+                                             May<TextSecureAttachment>.NoValue,
+                                             May<RequestMessage>.NoValue,
+                                             new May<List<ReadMessage>>(reads));
+        }
+
+        public static TextSecureSyncMessage forRead(ReadMessage read)
+        {
+            List<ReadMessage> reads = new List<ReadMessage>();
+            reads.Add(read);
+
+            return new TextSecureSyncMessage(May<SentTranscriptMessage>.NoValue,
+                                             May<TextSecureAttachment>.NoValue,
+                                             May<TextSecureAttachment>.NoValue,
+                                             May<RequestMessage>.NoValue,
+                                             new May<List<ReadMessage>>(reads));
         }
 
         public static TextSecureSyncMessage empty()
@@ -80,7 +108,8 @@ namespace libtextsecure.messages.multidevice
             return new TextSecureSyncMessage(May<SentTranscriptMessage>.NoValue,
                                              May<TextSecureAttachment>.NoValue,
                                              May<TextSecureAttachment>.NoValue,
-                                             May<RequestMessage>.NoValue);
+                                             May<RequestMessage>.NoValue,
+                                             May<List<ReadMessage>>.NoValue);
         }
 
         public May<SentTranscriptMessage> getSent()
@@ -103,5 +132,10 @@ namespace libtextsecure.messages.multidevice
             return request;
         }
 
+
+        public May<List<ReadMessage>> getRead()
+        {
+            return reads;
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -156,6 +156,10 @@ namespace libtextsecure
             {
                 content = await createMultiDeviceGroupsContent(message.getGroups().ForceGetValue().asStream());
             }
+            else if (message.getRead().HasValue)
+            {
+                content = createMultiDeviceReadContent(message.getRead().ForceGetValue());
+            }
             else
             {
                 throw new Exception("Unsupported sync message!");
@@ -233,6 +237,21 @@ namespace libtextsecure
             {
                 throw new Exception(e.Message);
             }
+        }
+
+        private byte[] createMultiDeviceReadContent(List<ReadMessage> readMessages)
+        {
+            Content.Builder container = Content.CreateBuilder();
+            SyncMessage.Builder builder = SyncMessage.CreateBuilder();
+
+            foreach (ReadMessage readMessage in readMessages)
+            {
+                builder.AddRead(SyncMessage.Types.Read.CreateBuilder()
+                    .SetTimestamp((ulong)readMessage.getTimestamp())
+                    .SetSender(readMessage.getSender()));
+            }
+
+            return container.SetSyncMessage(builder).Build().ToByteArray();
         }
 
         private byte[] createSentTranscriptMessage(byte[] content, May<TextSecureAddress> recipient, ulong timestamp)
