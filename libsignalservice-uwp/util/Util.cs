@@ -233,7 +233,7 @@ namespace libsignalservice.util
 
         public static long CurrentTimeMillis()
         {
-            return (DateTime.Now - new DateTime(1970, 1, 1)).Ticks / TimeSpan.TicksPerMillisecond;
+            return (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).Ticks / TimeSpan.TicksPerMillisecond;
         }
     }
 }
