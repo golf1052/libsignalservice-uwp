@@ -18,11 +18,11 @@ REM ======================= build =======================================
 
 
 REM build Any CPU
-%MSBuildPath% libtextsecure-uwp\libtextsecure-uwp.csproj /property:Configuration=Release /property:Platform="AnyCPU"
+%MSBuildPath% libsignalservice-uwp\libsignalservice-uwp.csproj /property:Configuration=Release /property:Platform="AnyCPU"
 
 REM create NuGet package
 pushd deploy
-%NuGetPath% pack nuget\libtextsecure-uwp.nuspec -Prop Configuration=Release -outputdirectory .
+%NuGetPath% pack nuget\libsignalservice-uwp.nuspec -Prop Configuration=Release -outputdirectory .
 popd
 
 

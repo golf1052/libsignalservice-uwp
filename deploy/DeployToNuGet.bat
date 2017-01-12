@@ -4,4 +4,4 @@ REM NuGet.exe setApiKey 00000-0000-0000-0000-000000 (replace with your key)
 
 SET NuGetPath="C:\Program Files (x86)\NuGet\nuget.exe"
 
-%NuGetPath% push libtextsecure-uwp.*.nupkg
+%NuGetPath% push libsignalservice-uwp.*.nupkg
