@@ -1,4 +1,3 @@
-﻿
-This is based on the implementation found in https://github.com/smndtrl/Signal-UWP/tree/7275af281630efaccd253188ae55971d40f57736/libtextsecure .
+﻿# signalservice-uwp
 
-This C# project will be published on NuGet.org as "libtextsecure-uwp", and is compatible with Universal Windows projects.
+C# UWP implementation of the Signal Service API based on https://github.com/WhisperSystems/libsignal-service-java
