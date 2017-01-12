@@ -15,22 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using libtextsecure.util;
-using Strilanc.Value;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static libtextsecure.push.TextSecureProtos;
 using System.IO;
 using libtextsecure.push;
+using libtextsecure.util;
+using Strilanc.Value;
 
 namespace libtextsecure.messages.multidevice
 {
     public class DeviceGroupsInputStream : ChunkedInputStream
     {
-
         public DeviceGroupsInputStream(Stream input)
         : base(input)
         {
@@ -42,7 +36,7 @@ namespace libtextsecure.messages.multidevice
             byte[] detailsSerialized = new byte[(int)detailsLength];
             Util.readFully(input, detailsSerialized);
 
-            TextSecureProtos.GroupDetails details = TextSecureProtos.GroupDetails.ParseFrom(detailsSerialized);
+            SignalServiceProtos.GroupDetails details = SignalServiceProtos.GroupDetails.ParseFrom(detailsSerialized);
 
             if (!details.HasId)
             {
@@ -52,7 +46,7 @@ namespace libtextsecure.messages.multidevice
             byte[] id = details.Id.ToByteArray();
             May<string> name = new May<string>(details.Name);
             IList<string> members = details.MembersList;
-            May<TextSecureAttachmentStream> avatar = May<TextSecureAttachmentStream>.NoValue;
+            May<SignalServiceAttachmentStream> avatar = May<SignalServiceAttachmentStream>.NoValue;
             bool active = details.Active;
 
             if (details.HasAvatar)
@@ -61,7 +55,7 @@ namespace libtextsecure.messages.multidevice
                 Stream avatarStream = new ChunkedInputStream.LimitedInputStream(avatarLength);
                 string avatarContentType = details.Avatar.ContentType;
 
-                avatar = new May<TextSecureAttachmentStream>(new TextSecureAttachmentStream(avatarStream.AsInputStream(), avatarContentType, (ulong)avatarLength, null));
+                avatar = new May<SignalServiceAttachmentStream>(new SignalServiceAttachmentStream(avatarStream, avatarContentType, avatarLength, null));
             }
 
             return new DeviceGroup(id, name, members, avatar, active);

@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,12 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Strilanc.Value;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Strilanc.Value;
 
 namespace libtextsecure.messages.multidevice
 {
@@ -29,16 +25,16 @@ namespace libtextsecure.messages.multidevice
 
         private readonly String number;
         private readonly May<String> name;
-        private readonly May<TextSecureAttachmentStream> avatar;
+        private readonly May<SignalServiceAttachmentStream> avatar;
 
-        public DeviceContact(String number, May<String> name, May<TextSecureAttachmentStream> avatar)
+        public DeviceContact(String number, May<String> name, May<SignalServiceAttachmentStream> avatar)
         {
             this.number = number;
             this.name = name;
             this.avatar = avatar;
         }
 
-        public May<TextSecureAttachmentStream> getAvatar()
+        public May<SignalServiceAttachmentStream> getAvatar()
         {
             return avatar;
         }

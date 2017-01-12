@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,13 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using Google.ProtocolBuffers;
 using libtextsecure.push;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Storage.Streams;
 
 namespace libtextsecure.messages.multidevice
@@ -55,7 +51,7 @@ namespace libtextsecure.messages.multidevice
 
         private void writeGroupDetails(DeviceGroup group)// throws IOException
         {
-            TextSecureProtos.GroupDetails.Builder groupDetails = TextSecureProtos.GroupDetails.CreateBuilder();
+            SignalServiceProtos.GroupDetails.Builder groupDetails = SignalServiceProtos.GroupDetails.CreateBuilder();
             groupDetails.SetId(ByteString.CopyFrom(group.getId()));
 
             if (group.getName().HasValue)
@@ -65,8 +61,8 @@ namespace libtextsecure.messages.multidevice
 
             if (group.getAvatar().HasValue)
             {
-                TextSecureProtos.GroupDetails.Types.Avatar.Builder avatarBuilder = TextSecureProtos.GroupDetails.Types.Avatar.CreateBuilder();
-                TextSecureAttachmentStream avatar = group.getAvatar().Match(e => e, () => { throw new Exception(); });
+                SignalServiceProtos.GroupDetails.Types.Avatar.Builder avatarBuilder = SignalServiceProtos.GroupDetails.Types.Avatar.CreateBuilder();
+                SignalServiceAttachmentStream avatar = group.getAvatar().Match(e => e, () => { throw new Exception(); });
                 avatarBuilder.SetContentType(avatar.getContentType());
                 avatarBuilder.SetLength((uint)avatar.getLength());
                 groupDetails.SetAvatar(avatarBuilder);

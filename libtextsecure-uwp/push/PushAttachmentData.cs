@@ -24,7 +24,7 @@ using Windows.Storage.Streams;
 
 namespace libtextsecure.push
 {
-    class PushAttachmentData
+    public class PushAttachmentData
     {
 
         private readonly String contentType;

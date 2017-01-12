@@ -30,10 +30,10 @@ namespace libtextsecure.messages.multidevice
         private readonly byte[] id;
         private readonly May<String> name;
         private readonly IList<String> members;
-        private readonly May<TextSecureAttachmentStream> avatar;
+        private readonly May<SignalServiceAttachmentStream> avatar;
         private readonly bool active;
 
-        public DeviceGroup(byte[] id, May<String> name, IList<String> members, May<TextSecureAttachmentStream> avatar, bool active)
+        public DeviceGroup(byte[] id, May<String> name, IList<String> members, May<SignalServiceAttachmentStream> avatar, bool active)
         {
             this.id = id;
             this.name = name;
@@ -42,7 +42,7 @@ namespace libtextsecure.messages.multidevice
             this.active = active;
         }
 
-        public May<TextSecureAttachmentStream> getAvatar()
+        public May<SignalServiceAttachmentStream> getAvatar()
         {
             return avatar;
         }

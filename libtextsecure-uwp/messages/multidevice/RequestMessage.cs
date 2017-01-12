@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,8 +21,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static libtextsecure.push.TextSecureProtos.ContactDetails.Types;
-using static libtextsecure.push.TextSecureProtos.SyncMessage.Types;
+using static libtextsecure.push.SignalServiceProtos.ContactDetails.Types;
+using static libtextsecure.push.SignalServiceProtos.SyncMessage.Types;
 
 namespace libtextsecure.messages.multidevice
 {

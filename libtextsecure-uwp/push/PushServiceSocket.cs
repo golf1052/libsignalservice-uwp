@@ -34,13 +34,7 @@ using Windows.Web.Http.Filters;
 
 namespace libtextsecure.push
 {
-    /**
-     *
-     * Network interface to the TextSecure server API.
-     *
-     * @author
-     */
-    class PushServiceSocket
+    public class PushServiceSocket
     {
 
         private static readonly String TAG = "PushServiceSocket";
@@ -189,10 +183,10 @@ namespace libtextsecure.push
             }
         }
 
-        public async Task<List<TextSecureEnvelopeEntity>> getMessages()// throws IOException
+        public async Task<List<SignalServiceEnvelopeEntity>> getMessages()// throws IOException
         {
             String responseText = await makeRequest(String.Format(MESSAGE_PATH, ""), "GET", null);
-            return JsonUtil.fromJson<TextSecureEnvelopeEntityList>(responseText).getMessages();
+            return JsonUtil.fromJson<SignalServiceEnvelopeEntityList>(responseText).getMessages();
         }
 
         public async Task<bool> acknowledgeMessage(String sender, ulong timestamp)// throws IOException
@@ -238,7 +232,7 @@ namespace libtextsecure.push
             return preKeyStatus.getCount();
         }
 
-        public async Task<List<PreKeyBundle>> getPreKeys(TextSecureAddress destination, uint deviceIdInteger)// throws IOException
+        public async Task<List<PreKeyBundle>> getPreKeys(SignalServiceAddress destination, uint deviceIdInteger)// throws IOException
         {
             try
             {
@@ -296,7 +290,7 @@ namespace libtextsecure.push
             }
         }
 
-        public async Task<PreKeyBundle> getPreKey(TextSecureAddress destination, uint deviceId)// throws IOException
+        public async Task<PreKeyBundle> getPreKey(SignalServiceAddress destination, uint deviceId)// throws IOException
         {
             try
             {

@@ -28,14 +28,14 @@ namespace libtextsecure.messages.multidevice
     {
 
         private readonly May<SentTranscriptMessage> sent;
-        private readonly May<TextSecureAttachment> contacts;
-        private readonly May<TextSecureAttachment> groups;
+        private readonly May<SignalServiceAttachment> contacts;
+        private readonly May<SignalServiceAttachment> groups;
         private readonly May<RequestMessage> request;
         private readonly May<List<ReadMessage>> reads;
 
         private TextSecureSyncMessage(May<SentTranscriptMessage> sent,
-                                      May<TextSecureAttachment> contacts,
-                                      May<TextSecureAttachment> groups,
+                                      May<SignalServiceAttachment> contacts,
+                                      May<SignalServiceAttachment> groups,
                                       May<RequestMessage> request,
                                       May<List<ReadMessage>> reads)
         {
@@ -49,26 +49,26 @@ namespace libtextsecure.messages.multidevice
         public static TextSecureSyncMessage forSentTranscript(SentTranscriptMessage sent)
         {
             return new TextSecureSyncMessage(new May<SentTranscriptMessage>(sent),
-                May<TextSecureAttachment>.NoValue,
-                May<TextSecureAttachment>.NoValue,
+                May<SignalServiceAttachment>.NoValue,
+                May<SignalServiceAttachment>.NoValue,
                 May<RequestMessage>.NoValue,
                 May<List<ReadMessage>>.NoValue);
         }
 
-        public static TextSecureSyncMessage forContacts(TextSecureAttachment contacts)
+        public static TextSecureSyncMessage forContacts(SignalServiceAttachment contacts)
         {
             return new TextSecureSyncMessage(May<SentTranscriptMessage>.NoValue,
-                                             new May<TextSecureAttachment>(contacts),
-                                             May<TextSecureAttachment>.NoValue,
+                                             new May<SignalServiceAttachment>(contacts),
+                                             May<SignalServiceAttachment>.NoValue,
                                              May<RequestMessage>.NoValue,
                                              May<List<ReadMessage>>.NoValue);
         }
 
-        public static TextSecureSyncMessage forGroups(TextSecureAttachment groups)
+        public static TextSecureSyncMessage forGroups(SignalServiceAttachment groups)
         {
             return new TextSecureSyncMessage(May<SentTranscriptMessage>.NoValue,
-                                             May<TextSecureAttachment>.NoValue,
-                                             new May<TextSecureAttachment>(groups),
+                                             May<SignalServiceAttachment>.NoValue,
+                                             new May<SignalServiceAttachment>(groups),
                                              May<RequestMessage>.NoValue,
                                              May<List<ReadMessage>>.NoValue);
         }
@@ -76,8 +76,8 @@ namespace libtextsecure.messages.multidevice
         public static TextSecureSyncMessage forRequest(RequestMessage request)
         {
             return new TextSecureSyncMessage(May<SentTranscriptMessage>.NoValue,
-                                             May<TextSecureAttachment>.NoValue,
-                                             May<TextSecureAttachment>.NoValue,
+                                             May<SignalServiceAttachment>.NoValue,
+                                             May<SignalServiceAttachment>.NoValue,
                                              new May<RequestMessage>(request),
                                              May<List<ReadMessage>>.NoValue);
         }
@@ -85,8 +85,8 @@ namespace libtextsecure.messages.multidevice
         public static TextSecureSyncMessage forRead(List<ReadMessage> reads)
         {
             return new TextSecureSyncMessage(May<SentTranscriptMessage>.NoValue,
-                                             May<TextSecureAttachment>.NoValue,
-                                             May<TextSecureAttachment>.NoValue,
+                                             May<SignalServiceAttachment>.NoValue,
+                                             May<SignalServiceAttachment>.NoValue,
                                              May<RequestMessage>.NoValue,
                                              new May<List<ReadMessage>>(reads));
         }
@@ -97,8 +97,8 @@ namespace libtextsecure.messages.multidevice
             reads.Add(read);
 
             return new TextSecureSyncMessage(May<SentTranscriptMessage>.NoValue,
-                                             May<TextSecureAttachment>.NoValue,
-                                             May<TextSecureAttachment>.NoValue,
+                                             May<SignalServiceAttachment>.NoValue,
+                                             May<SignalServiceAttachment>.NoValue,
                                              May<RequestMessage>.NoValue,
                                              new May<List<ReadMessage>>(reads));
         }
@@ -106,8 +106,8 @@ namespace libtextsecure.messages.multidevice
         public static TextSecureSyncMessage empty()
         {
             return new TextSecureSyncMessage(May<SentTranscriptMessage>.NoValue,
-                                             May<TextSecureAttachment>.NoValue,
-                                             May<TextSecureAttachment>.NoValue,
+                                             May<SignalServiceAttachment>.NoValue,
+                                             May<SignalServiceAttachment>.NoValue,
                                              May<RequestMessage>.NoValue,
                                              May<List<ReadMessage>>.NoValue);
         }
@@ -117,12 +117,12 @@ namespace libtextsecure.messages.multidevice
             return sent;
         }
 
-        public May<TextSecureAttachment> getGroups()
+        public May<SignalServiceAttachment> getGroups()
         {
             return groups;
         }
 
-        public May<TextSecureAttachment> getContacts()
+        public May<SignalServiceAttachment> getContacts()
         {
             return contacts;
         }

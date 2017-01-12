@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ namespace libtextsecure.messages.multidevice
             byte[] detailsSerialized = new byte[(int)detailsLength];
             Util.readFully(input, detailsSerialized);
 
-            TextSecureProtos.ContactDetails details = TextSecureProtos.ContactDetails.ParseFrom(detailsSerialized);
+            SignalServiceProtos.ContactDetails details = SignalServiceProtos.ContactDetails.ParseFrom(detailsSerialized);
             String number = details.Number;
             May<String> name = details.Name == null ? May<string>.NoValue : new May<string>(details.Name);
             May<TextSecureAttachmentStream> avatar = May<TextSecureAttachmentStream>.NoValue;

@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,12 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Strilanc.Value;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Strilanc.Value;
 
 namespace libtextsecure.messages.multidevice
 {
@@ -29,16 +25,16 @@ namespace libtextsecure.messages.multidevice
 
         private readonly May<String> destination;
         private readonly ulong timestamp;
-        private readonly TextSecureDataMessage message;
+        private readonly SignalServiceDataMessage message;
 
-        public SentTranscriptMessage(String destination, ulong timestamp, TextSecureDataMessage message)
+        public SentTranscriptMessage(String destination, ulong timestamp, SignalServiceDataMessage message)
         {
             this.destination = new May<string>(destination);
             this.timestamp = timestamp;
             this.message = message;
         }
 
-        public SentTranscriptMessage(ulong timestamp, TextSecureDataMessage message)
+        public SentTranscriptMessage(ulong timestamp, SignalServiceDataMessage message)
         {
             this.destination = May<string>.NoValue;
             this.timestamp = timestamp;
@@ -55,7 +51,7 @@ namespace libtextsecure.messages.multidevice
             return timestamp;
         }
 
-        public TextSecureDataMessage getMessage()
+        public SignalServiceDataMessage getMessage()
         {
             return message;
         }

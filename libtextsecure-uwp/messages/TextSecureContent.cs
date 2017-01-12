@@ -28,28 +28,28 @@ namespace libtextsecure.messages
     public class TextSecureContent
     {
 
-        private readonly May<TextSecureDataMessage> message;
+        private readonly May<SignalServiceDataMessage> message;
         private readonly May<TextSecureSyncMessage> synchronizeMessage;
 
         public TextSecureContent()
         {
-            this.message = May<TextSecureDataMessage>.NoValue;
+            this.message = May<SignalServiceDataMessage>.NoValue;
             this.synchronizeMessage = May<TextSecureSyncMessage>.NoValue;
         }
 
-        public TextSecureContent(TextSecureDataMessage message)
+        public TextSecureContent(SignalServiceDataMessage message)
         {
-            this.message = message == null ? May<TextSecureDataMessage>.NoValue : new May<TextSecureDataMessage>(message);
+            this.message = message == null ? May<SignalServiceDataMessage>.NoValue : new May<SignalServiceDataMessage>(message);
             this.synchronizeMessage = May<TextSecureSyncMessage>.NoValue;
         }
 
         public TextSecureContent(TextSecureSyncMessage synchronizeMessage)
         {
-            this.message = May<TextSecureDataMessage>.NoValue;
+            this.message = May<SignalServiceDataMessage>.NoValue;
             this.synchronizeMessage = synchronizeMessage == null ? May<TextSecureSyncMessage>.NoValue : new May<TextSecureSyncMessage>(synchronizeMessage);
         }
 
-        public May<TextSecureDataMessage> getDataMessage()
+        public May<SignalServiceDataMessage> getDataMessage()
         {
             return message;
         }

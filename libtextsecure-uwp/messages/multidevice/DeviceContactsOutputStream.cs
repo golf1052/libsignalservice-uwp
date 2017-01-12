@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
-using static libtextsecure.push.TextSecureProtos;
+using static libtextsecure.push.SignalServiceProtos;
 
 namespace libtextsecure.messages.multidevice
 {
@@ -55,7 +55,7 @@ namespace libtextsecure.messages.multidevice
 
         private void writeContactDetails(DeviceContact contact)// throws IOException
         {
-            TextSecureProtos.ContactDetails.Builder contactDetails = TextSecureProtos.ContactDetails.CreateBuilder();
+            SignalServiceProtos.ContactDetails.Builder contactDetails = SignalServiceProtos.ContactDetails.CreateBuilder();
             contactDetails.SetNumber(contact.getNumber());
 
             /*if (contact.getName().HasValue)
@@ -65,7 +65,7 @@ namespace libtextsecure.messages.multidevice
 
             if (contact.getAvatar().HasValue)
             {
-                TextSecureProtos.ContactDetails.Avatar.Builder avatarBuilder = ContactDetails.Avatar.CreateBuilder();
+                SignalServiceProtos.ContactDetails.Avatar.Builder avatarBuilder = ContactDetails.Avatar.CreateBuilder();
                 avatarBuilder.setContentType(contact.getAvatar().ForceGetValue().getContentType());
                 avatarBuilder.setLength((int)contact.getAvatar().ForceGetValue().getLength());
                 contactDetails.SetAvatar(avatarBuilder);
