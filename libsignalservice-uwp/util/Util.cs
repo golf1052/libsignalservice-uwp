@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2017 smndtrl, golf1052
+ * Copyright (C) 2015-2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -229,6 +229,11 @@ namespace libsignalservice.util
                     value >>= 7;
                 }
             }*/
+        }
+
+        public static long CurrentTimeMillis()
+        {
+            return (DateTime.Now - new DateTime(1970, 1, 1)).Ticks / TimeSpan.TicksPerMillisecond;
         }
     }
 }

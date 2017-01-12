@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2017 smndtrl, golf1052
+ * Copyright (C) 2015-2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using libsignal.util;
+using libsignalservice.util;
 using Strilanc.Value;
 
 namespace libsignalservice.messages
@@ -32,6 +33,8 @@ namespace libsignalservice.messages
         private readonly May<string> body;
         private readonly May<SignalServiceGroup> group;
         private readonly bool endSession;
+        private readonly bool expirationUpdate;
+        private readonly int expiresInSeconds;
 
         /// <summary>
         /// Construct a SignalServiceDataMessage with a body and no attachments.
@@ -39,7 +42,17 @@ namespace libsignalservice.messages
         /// <param name="timestamp">The sent timestamp</param>
         /// <param name="body">The message contents.</param>
         public SignalServiceDataMessage(long timestamp, string body)
-            : this(timestamp, (List<SignalServiceAttachment>)null, body)
+            : this(timestamp, body, 0)
+        {
+        }
+
+        /// <summary>
+        /// Construct an expiring SignalServiceDataMessage with a body and no attachments.
+        /// </summary>
+        /// <param name="timestamp">The sent timestamp</param>
+        /// <param name="body">The message contents.</param>
+        /// <param name="expiresInSeconds">The number of seconds in which a message should disappear after having been seen.</param>
+        public SignalServiceDataMessage(long timestamp, string body, int expiresInSeconds)
         {
         }
 
@@ -60,6 +73,18 @@ namespace libsignalservice.messages
         }
 
         /// <summary>
+        /// Construct an expiring SignalServiceDataMessage with a body and list of attachments.
+        /// </summary>
+        /// <param name="timestamp">The sent timestamp.</param>
+        /// <param name="attachments">The attachments.</param>
+        /// <param name="body">The message contents.</param>
+        /// <param name="expiresInSeconds">The number of seconds in which a message should disappear after having been seen.</param>
+        public SignalServiceDataMessage(long timestamp, List<SignalServiceAttachment> attachments, string body, int expiresInSeconds)
+            : this(timestamp, null, attachments, body, expiresInSeconds)
+        {
+        }
+
+        /// <summary>
         /// Construct a SignalServiceDataMessage group message with attachments and body.
         /// </summary>
         /// <param name="timestamp">The sent timestamp.</param>
@@ -67,7 +92,20 @@ namespace libsignalservice.messages
         /// <param name="attachments">The attachments.</param>
         /// <param name="body">The message contents.</param>
         public SignalServiceDataMessage(long timestamp, SignalServiceGroup group, List<SignalServiceAttachment> attachments, string body)
-            : this(timestamp, group, attachments, body, false)
+            : this(timestamp, group, attachments, body, 0)
+        {
+        }
+
+        /// <summary>
+        /// Construct an expiring SignalServiceDataMessage group message with attachments and body.
+        /// </summary>
+        /// <param name="timestamp">The sent timestamp.</param>
+        /// <param name="group">The group information.</param>
+        /// <param name="attachments">The attachments.</param>
+        /// <param name="body">The message contents.</param>
+        /// <param name="expiresInSeconds">The number of seconds in which a message should disappear after having been seen.</param>
+        public SignalServiceDataMessage(long timestamp, SignalServiceGroup group, List<SignalServiceAttachment> attachments, string body, int expiresInSeconds)
+            : this(timestamp, group, attachments, body, false, expiresInSeconds, false)
         {
         }
 
@@ -79,12 +117,21 @@ namespace libsignalservice.messages
         /// <param name="attachments">The attachments.</param>
         /// <param name="body">The message contents.</param>
         /// <param name="endSession">Flag indicating whether this message should close a session.</param>
-        public SignalServiceDataMessage(long timestamp, SignalServiceGroup group, List<SignalServiceAttachment> attachments, string body, bool endSession)
+        /// <param name="expiresInSeconds">The number of seconds in which a message should disappear after having been seen.</param>
+        public SignalServiceDataMessage(long timestamp,
+            SignalServiceGroup group,
+            List<SignalServiceAttachment> attachments,
+            string body,
+            bool endSession,
+            int expiresInSeconds,
+            bool expirationUpdate)
         {
             this.timestamp = timestamp;
             this.body = new May<string>(body);
             this.group = group == null ? May<SignalServiceGroup>.NoValue : new May<SignalServiceGroup>(group);
             this.endSession = endSession;
+            this.expiresInSeconds = expiresInSeconds;
+            this.expirationUpdate = expirationUpdate;
 
             if (attachments != null && !(attachments.Count == 0))
             {
@@ -96,13 +143,13 @@ namespace libsignalservice.messages
             }
         }
 
-        public static SignalServiceDataMessageBuilder newBuilder()
+        public static Builder newBuilder()
         {
-            return new SignalServiceDataMessageBuilder();
+            return new Builder();
         }
 
         /// <summary>
-        /// 
+        /// The message timestamp.
         /// </summary>
         /// <returns>The message timestamp.</returns>
         public long getTimestamp()
@@ -111,7 +158,7 @@ namespace libsignalservice.messages
         }
 
         /// <summary>
-        /// 
+        /// The message attachments (if any).
         /// </summary>
         /// <returns>The message attachments (if any).</returns>
         public May<List<SignalServiceAttachment>> getAttachments()
@@ -120,7 +167,7 @@ namespace libsignalservice.messages
         }
 
         /// <summary>
-        /// 
+        /// The message body (if any).
         /// </summary>
         /// <returns>The message body (if any).</returns>
         public May<string> getBody()
@@ -129,7 +176,7 @@ namespace libsignalservice.messages
         }
 
         /// <summary>
-        /// 
+        /// The message group info (if any).
         /// </summary>
         /// <returns>The message group info (if any).</returns>
         public May<SignalServiceGroup> getGroupInfo()
@@ -142,42 +189,53 @@ namespace libsignalservice.messages
             return endSession;
         }
 
+        public bool isExpirationUpdate()
+        {
+            return expirationUpdate;
+        }
+
         public bool isGroupUpdate()
         {
             return group.HasValue && group.ForceGetValue().getType() != SignalServiceGroup.Type.DELIVER;
         }
 
+        public int getExpiresInSeconds()
+        {
+            return expiresInSeconds;
+        }
     }
 
-    public class SignalServiceDataMessageBuilder
+    public class Builder
     {
         private List<SignalServiceAttachment> attachments = new List<SignalServiceAttachment>();
         private long timestamp;
         private SignalServiceGroup group;
         private string body;
         private bool endSession;
+        private int expiresInSeconds;
+        private bool expirationUpdate;
 
-        public SignalServiceDataMessageBuilder() { }
+        public Builder() { }
 
-        public SignalServiceDataMessageBuilder withTimestamp(long timestamp)
+        public Builder withTimestamp(long timestamp)
         {
             this.timestamp = timestamp;
             return this;
         }
 
-        public SignalServiceDataMessageBuilder asGroupMessage(SignalServiceGroup group)
+        public Builder asGroupMessage(SignalServiceGroup group)
         {
             this.group = group;
             return this;
         }
 
-        public SignalServiceDataMessageBuilder withAttachment(SignalServiceAttachment attachment)
+        public Builder withAttachment(SignalServiceAttachment attachment)
         {
             attachments.Add(attachment);
             return this;
         }
 
-        public SignalServiceDataMessageBuilder withAttachments(List<SignalServiceAttachment> attachments)
+        public Builder withAttachments(List<SignalServiceAttachment> attachments)
         {
             foreach (SignalServiceAttachment attachment in attachments)
             {
@@ -187,28 +245,44 @@ namespace libsignalservice.messages
             return this;
         }
 
-        public SignalServiceDataMessageBuilder withBody(string body)
+        public Builder withBody(string body)
         {
             this.body = body;
             return this;
         }
 
-        public SignalServiceDataMessageBuilder asEndSessionMessage()
+        public Builder asEndSessionMessage()
         {
-            this.endSession = true;
-            return this;
+            return asEndSessionMessage(true);
         }
 
-        public SignalServiceDataMessageBuilder asEndSessionMessage(bool endSession)
+        public Builder asEndSessionMessage(bool endSession)
         {
             this.endSession = endSession;
             return this;
         }
 
+        public Builder asExpirationUpdate()
+        {
+            return asExpirationUpdate(true);
+        }
+
+        private Builder asExpirationUpdate(bool expirationUpdate)
+        {
+            this.expirationUpdate = expirationUpdate;
+            return this;
+        }
+
+        public Builder withExpiration(int expiresInSeconds)
+        {
+            this.expiresInSeconds = expiresInSeconds;
+            return this;
+        }
+
         public SignalServiceDataMessage build()
         {
-            if (timestamp == 0) timestamp = (long)KeyHelper.getTime();
-            return new SignalServiceDataMessage(timestamp, group, attachments, body, endSession);
+            if (timestamp == 0) timestamp = Util.CurrentTimeMillis();
+            return new SignalServiceDataMessage(timestamp, group, attachments, body, endSession, expiresInSeconds, expirationUpdate);
         }
     }
 }

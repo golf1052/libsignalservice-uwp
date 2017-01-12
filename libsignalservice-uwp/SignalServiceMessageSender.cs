@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2017 smndtrl, golf1052
+ * Copyright (C) 2015-2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -89,12 +89,12 @@ namespace libsignalservice
         {
             byte[] content = await createMessageContent(message);
             long timestamp = message.getTimestamp();
-            SendMessageResponse response = await sendMessage(recipient, (ulong)timestamp, content, true);
+            SendMessageResponse response = await sendMessage(recipient, timestamp, content, true);
 
             if (response != null && response.getNeedsSync())
             {
                 byte[] syncMessage = createMultiDeviceSentTranscriptContent(content, new May<SignalServiceAddress>(recipient), (ulong)timestamp);
-                await sendMessage(localAddress, (ulong)timestamp, syncMessage, false);
+                await sendMessage(localAddress, timestamp, syncMessage, false);
             }
 
             if (message.isEndSession())
@@ -117,14 +117,14 @@ namespace libsignalservice
         {
             byte[] content = await createMessageContent(message);
             long timestamp = message.getTimestamp();
-            SendMessageResponse response = sendMessage(recipients, (ulong)timestamp, content, true);
+            SendMessageResponse response = sendMessage(recipients, timestamp, content, true);
 
             try
             {
                 if (response != null && response.getNeedsSync())
                 {
                     byte[] syncMessage = createMultiDeviceSentTranscriptContent(content, May<SignalServiceAddress>.NoValue, (ulong)timestamp);
-                    await sendMessage(localAddress, (ulong)timestamp, syncMessage, false);
+                    await sendMessage(localAddress, timestamp, syncMessage, false);
                 }
             }
             catch (UntrustedIdentityException e)
@@ -133,7 +133,7 @@ namespace libsignalservice
             }
         }
 
-        public async Task sendMessage(TextSecureSyncMessage message)
+        public async Task sendMessage(SignalServiceSyncMessage message)
         {
             byte[] content;
 
@@ -154,18 +154,18 @@ namespace libsignalservice
                 throw new Exception("Unsupported sync message!");
             }
 
-            await sendMessage(localAddress, KeyHelper.getTime(), content, false);
+            await sendMessage(localAddress, Util.CurrentTimeMillis(), content, false);
         }
 
         private async Task<byte[]> createMessageContent(SignalServiceDataMessage message)// throws IOException
         {
             DataMessage.Builder builder = DataMessage.CreateBuilder();
-            /*List<AttachmentPointer> pointers = createAttachmentPointers(message.getAttachments());
+            IList<AttachmentPointer> pointers = await createAttachmentPointers(message.getAttachments());
 
-            if (!pointers.Any()) // TODO:check
+            if (pointers.Count != 0)
             {
                 builder.AddRangeAttachments(pointers);
-            }*/
+            }
 
             if (message.getBody().HasValue)
             {
@@ -180,6 +180,16 @@ namespace libsignalservice
             if (message.isEndSession())
             {
                 builder.SetFlags((uint)DataMessage.Types.Flags.END_SESSION);
+            }
+
+            if (message.isExpirationUpdate())
+            {
+                builder.SetFlags((uint)DataMessage.Types.Flags.EXPIRATION_TIMER_UPDATE);
+            }
+
+            if (message.getExpiresInSeconds() > 0)
+            {
+                builder.SetExpireTimer((uint)message.getExpiresInSeconds());
             }
 
             return builder.Build().ToByteArray();
@@ -211,13 +221,19 @@ namespace libsignalservice
                 Content.Builder container = Content.CreateBuilder();
                 SyncMessage.Builder syncMessage = SyncMessage.CreateBuilder();
                 SyncMessage.Types.Sent.Builder sentMessage = SyncMessage.Types.Sent.CreateBuilder();
+                DataMessage dataMessage = DataMessage.ParseFrom(content);
 
                 sentMessage.SetTimestamp(timestamp);
-                sentMessage.SetMessage(DataMessage.ParseFrom(content));
+                sentMessage.SetMessage(dataMessage);
 
                 if (recipient.HasValue)
                 {
                     sentMessage.SetDestination(recipient.ForceGetValue().getNumber());
+                }
+
+                if (dataMessage.ExpireTimer > 0)
+                {
+                    sentMessage.SetExpirationStartTimestamp((ulong)Util.CurrentTimeMillis());
                 }
 
                 return container.SetSyncMessage(syncMessage.SetSent(sentMessage)).Build().ToByteArray();
@@ -297,7 +313,7 @@ namespace libsignalservice
             return builder.Build();
         }
 
-        private SendMessageResponse sendMessage(List<SignalServiceAddress> recipients, ulong timestamp, byte[] content, bool legacy)
+        private SendMessageResponse sendMessage(List<SignalServiceAddress> recipients, long timestamp, byte[] content, bool legacy)
         {
             IList<UntrustedIdentityException> untrustedIdentities = new List<UntrustedIdentityException>(); // was linkedlist
             IList<UnregisteredUserException> unregisteredUsers = new List<UnregisteredUserException>();
@@ -336,7 +352,7 @@ namespace libsignalservice
             return response;
         }
 
-        private async Task<SendMessageResponse> sendMessage(SignalServiceAddress recipient, ulong timestamp, byte[] content, bool legacy)
+        private async Task<SendMessageResponse> sendMessage(SignalServiceAddress recipient, long timestamp, byte[] content, bool legacy)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -360,7 +376,7 @@ namespace libsignalservice
             throw new Exception("Failed to resolve conflicts after 3 attempts!");
         }
 
-        private async Task<IList<AttachmentPointer>> createAttachmentPointers(May<LinkedList<SignalServiceAttachment>> attachments)
+        private async Task<IList<AttachmentPointer>> createAttachmentPointers(May<List<SignalServiceAttachment>> attachments)
         {
             IList<AttachmentPointer> pointers = new List<AttachmentPointer>();
 
@@ -409,7 +425,7 @@ namespace libsignalservice
 
         private async Task<OutgoingPushMessageList> getEncryptedMessages(PushServiceSocket socket,
                                                    SignalServiceAddress recipient,
-                                                   ulong timestamp,
+                                                   long timestamp,
                                                    byte[] plaintext,
                                                    bool legacy)
         {
@@ -425,7 +441,7 @@ namespace libsignalservice
                 messages.Add(await getEncryptedMessage(socket, recipient, deviceId, plaintext, legacy));
             }
 
-            return new OutgoingPushMessageList(recipient.getNumber(), timestamp, recipient.getRelay().HasValue ? recipient.getRelay().ForceGetValue() : null, messages);
+            return new OutgoingPushMessageList(recipient.getNumber(), (ulong)timestamp, recipient.getRelay().HasValue ? recipient.getRelay().ForceGetValue() : null, messages);
         }
 
         private async Task<OutgoingPushMessage> getEncryptedMessage(PushServiceSocket socket, SignalServiceAddress recipient, uint deviceId, byte[] plaintext, bool legacy)

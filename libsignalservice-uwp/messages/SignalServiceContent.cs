@@ -23,7 +23,7 @@ namespace libsignalservice.messages
     public class SignalServiceContent
     {
         private readonly May<SignalServiceDataMessage> message;
-        private readonly May<TextSecureSyncMessage> synchronizeMessage;
+        private readonly May<SignalServiceSyncMessage> synchronizeMessage;
 
         public SignalServiceContent()
         {
@@ -37,10 +37,10 @@ namespace libsignalservice.messages
             synchronizeMessage = May.NoValue;
         }
 
-        public SignalServiceContent(TextSecureSyncMessage synchronizeMessage)
+        public SignalServiceContent(SignalServiceSyncMessage synchronizeMessage)
         {
             message = May.NoValue;
-            this.synchronizeMessage = new May<TextSecureSyncMessage>(synchronizeMessage);
+            this.synchronizeMessage = new May<SignalServiceSyncMessage>(synchronizeMessage);
         }
 
         public May<SignalServiceDataMessage> getDataMessage()
@@ -48,7 +48,7 @@ namespace libsignalservice.messages
             return message;
         }
 
-        public May<TextSecureSyncMessage> getSyncMessage()
+        public May<SignalServiceSyncMessage> getSyncMessage()
         {
             return synchronizeMessage;
         }

@@ -64,40 +64,42 @@ namespace libsignalservice.push {
             "SVBIRVJURVhUEAESEAoMS0VZX0VYQ0hBTkdFEAISEQoNUFJFS0VZX0JVTkRM", 
             "RRADEgsKB1JFQ0VJUFQQBSJlCgdDb250ZW50EiwKC2RhdGFNZXNzYWdlGAEg", 
             "ASgLMhcudGV4dHNlY3VyZS5EYXRhTWVzc2FnZRIsCgtzeW5jTWVzc2FnZRgC", 
-            "IAEoCzIXLnRleHRzZWN1cmUuU3luY01lc3NhZ2UioQEKC0RhdGFNZXNzYWdl", 
+            "IAEoCzIXLnRleHRzZWN1cmUuU3luY01lc3NhZ2Ui0wEKC0RhdGFNZXNzYWdl", 
             "EgwKBGJvZHkYASABKAkSMgoLYXR0YWNobWVudHMYAiADKAsyHS50ZXh0c2Vj", 
             "dXJlLkF0dGFjaG1lbnRQb2ludGVyEicKBWdyb3VwGAMgASgLMhgudGV4dHNl", 
-            "Y3VyZS5Hcm91cENvbnRleHQSDQoFZmxhZ3MYBCABKA0iGAoFRmxhZ3MSDwoL", 
-            "RU5EX1NFU1NJT04QASLeBAoLU3luY01lc3NhZ2USKgoEc2VudBgBIAEoCzIc", 
-            "LnRleHRzZWN1cmUuU3luY01lc3NhZ2UuU2VudBIyCghjb250YWN0cxgCIAEo", 
-            "CzIgLnRleHRzZWN1cmUuU3luY01lc3NhZ2UuQ29udGFjdHMSLgoGZ3JvdXBz", 
-            "GAMgASgLMh4udGV4dHNlY3VyZS5TeW5jTWVzc2FnZS5Hcm91cHMSMAoHcmVx", 
-            "dWVzdBgEIAEoCzIfLnRleHRzZWN1cmUuU3luY01lc3NhZ2UuUmVxdWVzdBIq", 
-            "CgRyZWFkGAUgAygLMhwudGV4dHNlY3VyZS5TeW5jTWVzc2FnZS5SZWFkGlgK", 
-            "BFNlbnQSEwoLZGVzdGluYXRpb24YASABKAkSEQoJdGltZXN0YW1wGAIgASgE", 
-            "EigKB21lc3NhZ2UYAyABKAsyFy50ZXh0c2VjdXJlLkRhdGFNZXNzYWdlGjcK", 
-            "CENvbnRhY3RzEisKBGJsb2IYASABKAsyHS50ZXh0c2VjdXJlLkF0dGFjaG1l", 
-            "bnRQb2ludGVyGjUKBkdyb3VwcxIrCgRibG9iGAEgASgLMh0udGV4dHNlY3Vy", 
-            "ZS5BdHRhY2htZW50UG9pbnRlchpsCgdSZXF1ZXN0EjIKBHR5cGUYASABKA4y", 
-            "JC50ZXh0c2VjdXJlLlN5bmNNZXNzYWdlLlJlcXVlc3QuVHlwZSItCgRUeXBl", 
-            "EgsKB1VOS05PV04QABIMCghDT05UQUNUUxABEgoKBkdST1VQUxACGikKBFJl", 
-            "YWQSDgoGc2VuZGVyGAEgASgJEhEKCXRpbWVzdGFtcBgCIAEoBCJiChFBdHRh", 
-            "Y2htZW50UG9pbnRlchIKCgJpZBgBIAEoBhITCgtjb250ZW50VHlwZRgCIAEo", 
-            "CRILCgNrZXkYAyABKAwSDAoEc2l6ZRgEIAEoDRIRCgl0aHVtYm5haWwYBSAB", 
-            "KAwizQEKDEdyb3VwQ29udGV4dBIKCgJpZBgBIAEoDBIrCgR0eXBlGAIgASgO", 
-            "Mh0udGV4dHNlY3VyZS5Hcm91cENvbnRleHQuVHlwZRIMCgRuYW1lGAMgASgJ", 
-            "Eg8KB21lbWJlcnMYBCADKAkSLQoGYXZhdGFyGAUgASgLMh0udGV4dHNlY3Vy", 
-            "ZS5BdHRhY2htZW50UG9pbnRlciI2CgRUeXBlEgsKB1VOS05PV04QABIKCgZV", 
-            "UERBVEUQARILCgdERUxJVkVSEAISCAoEUVVJVBADIpABCg5Db250YWN0RGV0", 
-            "YWlscxIOCgZudW1iZXIYASABKAkSDAoEbmFtZRgCIAEoCRIxCgZhdmF0YXIY", 
-            "AyABKAsyIS50ZXh0c2VjdXJlLkNvbnRhY3REZXRhaWxzLkF2YXRhchotCgZB", 
-            "dmF0YXISEwoLY29udGVudFR5cGUYASABKAkSDgoGbGVuZ3RoGAIgASgNIq8B", 
-            "CgxHcm91cERldGFpbHMSCgoCaWQYASABKAwSDAoEbmFtZRgCIAEoCRIPCgdt", 
-            "ZW1iZXJzGAMgAygJEi8KBmF2YXRhchgEIAEoCzIfLnRleHRzZWN1cmUuR3Jv", 
-            "dXBEZXRhaWxzLkF2YXRhchIUCgZhY3RpdmUYBSABKAg6BHRydWUaLQoGQXZh", 
-            "dGFyEhMKC2NvbnRlbnRUeXBlGAEgASgJEg4KBmxlbmd0aBgCIAEoDUJCCitv", 
-            "cmcud2hpc3BlcnN5c3RlbXMudGV4dHNlY3VyZS5pbnRlcm5hbC5wdXNoQhNT", 
-          "aWduYWxTZXJ2aWNlUHJvdG9z"));
+            "Y3VyZS5Hcm91cENvbnRleHQSDQoFZmxhZ3MYBCABKA0SEwoLZXhwaXJlVGlt", 
+            "ZXIYBSABKA0iNQoFRmxhZ3MSDwoLRU5EX1NFU1NJT04QARIbChdFWFBJUkFU", 
+            "SU9OX1RJTUVSX1VQREFURRACIoAFCgtTeW5jTWVzc2FnZRIqCgRzZW50GAEg", 
+            "ASgLMhwudGV4dHNlY3VyZS5TeW5jTWVzc2FnZS5TZW50EjIKCGNvbnRhY3Rz", 
+            "GAIgASgLMiAudGV4dHNlY3VyZS5TeW5jTWVzc2FnZS5Db250YWN0cxIuCgZn", 
+            "cm91cHMYAyABKAsyHi50ZXh0c2VjdXJlLlN5bmNNZXNzYWdlLkdyb3VwcxIw", 
+            "CgdyZXF1ZXN0GAQgASgLMh8udGV4dHNlY3VyZS5TeW5jTWVzc2FnZS5SZXF1", 
+            "ZXN0EioKBHJlYWQYBSADKAsyHC50ZXh0c2VjdXJlLlN5bmNNZXNzYWdlLlJl", 
+            "YWQaegoEU2VudBITCgtkZXN0aW5hdGlvbhgBIAEoCRIRCgl0aW1lc3RhbXAY", 
+            "AiABKAQSKAoHbWVzc2FnZRgDIAEoCzIXLnRleHRzZWN1cmUuRGF0YU1lc3Nh", 
+            "Z2USIAoYZXhwaXJhdGlvblN0YXJ0VGltZXN0YW1wGAQgASgEGjcKCENvbnRh", 
+            "Y3RzEisKBGJsb2IYASABKAsyHS50ZXh0c2VjdXJlLkF0dGFjaG1lbnRQb2lu", 
+            "dGVyGjUKBkdyb3VwcxIrCgRibG9iGAEgASgLMh0udGV4dHNlY3VyZS5BdHRh", 
+            "Y2htZW50UG9pbnRlchpsCgdSZXF1ZXN0EjIKBHR5cGUYASABKA4yJC50ZXh0", 
+            "c2VjdXJlLlN5bmNNZXNzYWdlLlJlcXVlc3QuVHlwZSItCgRUeXBlEgsKB1VO", 
+            "S05PV04QABIMCghDT05UQUNUUxABEgoKBkdST1VQUxACGikKBFJlYWQSDgoG", 
+            "c2VuZGVyGAEgASgJEhEKCXRpbWVzdGFtcBgCIAEoBCJiChFBdHRhY2htZW50", 
+            "UG9pbnRlchIKCgJpZBgBIAEoBhITCgtjb250ZW50VHlwZRgCIAEoCRILCgNr", 
+            "ZXkYAyABKAwSDAoEc2l6ZRgEIAEoDRIRCgl0aHVtYm5haWwYBSABKAwizQEK", 
+            "DEdyb3VwQ29udGV4dBIKCgJpZBgBIAEoDBIrCgR0eXBlGAIgASgOMh0udGV4", 
+            "dHNlY3VyZS5Hcm91cENvbnRleHQuVHlwZRIMCgRuYW1lGAMgASgJEg8KB21l", 
+            "bWJlcnMYBCADKAkSLQoGYXZhdGFyGAUgASgLMh0udGV4dHNlY3VyZS5BdHRh", 
+            "Y2htZW50UG9pbnRlciI2CgRUeXBlEgsKB1VOS05PV04QABIKCgZVUERBVEUQ", 
+            "ARILCgdERUxJVkVSEAISCAoEUVVJVBADIpABCg5Db250YWN0RGV0YWlscxIO", 
+            "CgZudW1iZXIYASABKAkSDAoEbmFtZRgCIAEoCRIxCgZhdmF0YXIYAyABKAsy", 
+            "IS50ZXh0c2VjdXJlLkNvbnRhY3REZXRhaWxzLkF2YXRhchotCgZBdmF0YXIS", 
+            "EwoLY29udGVudFR5cGUYASABKAkSDgoGbGVuZ3RoGAIgASgNIq8BCgxHcm91", 
+            "cERldGFpbHMSCgoCaWQYASABKAwSDAoEbmFtZRgCIAEoCRIPCgdtZW1iZXJz", 
+            "GAMgAygJEi8KBmF2YXRhchgEIAEoCzIfLnRleHRzZWN1cmUuR3JvdXBEZXRh", 
+            "aWxzLkF2YXRhchIUCgZhY3RpdmUYBSABKAg6BHRydWUaLQoGQXZhdGFyEhMK", 
+            "C2NvbnRlbnRUeXBlGAEgASgJEg4KBmxlbmd0aBgCIAEoDUJCCitvcmcud2hp", 
+            "c3BlcnN5c3RlbXMudGV4dHNlY3VyZS5pbnRlcm5hbC5wdXNoQhNTaWduYWxT", 
+          "ZXJ2aWNlUHJvdG9z"));
       pbd::FileDescriptor.InternalDescriptorAssigner assigner = delegate(pbd::FileDescriptor root) {
         descriptor = root;
         internal__static_textsecure_Envelope__Descriptor = Descriptor.MessageTypes[0];
@@ -111,7 +113,7 @@ namespace libsignalservice.push {
         internal__static_textsecure_DataMessage__Descriptor = Descriptor.MessageTypes[2];
         internal__static_textsecure_DataMessage__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::libsignalservice.push.SignalServiceProtos.DataMessage, global::libsignalservice.push.SignalServiceProtos.DataMessage.Builder>(internal__static_textsecure_DataMessage__Descriptor,
-                new string[] { "Body", "Attachments", "Group", "Flags", });
+                new string[] { "Body", "Attachments", "Group", "Flags", "ExpireTimer", });
         internal__static_textsecure_SyncMessage__Descriptor = Descriptor.MessageTypes[3];
         internal__static_textsecure_SyncMessage__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::libsignalservice.push.SignalServiceProtos.SyncMessage, global::libsignalservice.push.SignalServiceProtos.SyncMessage.Builder>(internal__static_textsecure_SyncMessage__Descriptor,
@@ -119,7 +121,7 @@ namespace libsignalservice.push {
         internal__static_textsecure_SyncMessage_Sent__Descriptor = internal__static_textsecure_SyncMessage__Descriptor.NestedTypes[0];
         internal__static_textsecure_SyncMessage_Sent__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::libsignalservice.push.SignalServiceProtos.SyncMessage.Types.Sent, global::libsignalservice.push.SignalServiceProtos.SyncMessage.Types.Sent.Builder>(internal__static_textsecure_SyncMessage_Sent__Descriptor,
-                new string[] { "Destination", "Timestamp", "Message", });
+                new string[] { "Destination", "Timestamp", "Message", "ExpirationStartTimestamp", });
         internal__static_textsecure_SyncMessage_Contacts__Descriptor = internal__static_textsecure_SyncMessage__Descriptor.NestedTypes[1];
         internal__static_textsecure_SyncMessage_Contacts__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::libsignalservice.push.SignalServiceProtos.SyncMessage.Types.Contacts, global::libsignalservice.push.SignalServiceProtos.SyncMessage.Types.Contacts.Builder>(internal__static_textsecure_SyncMessage_Contacts__Descriptor,
@@ -1106,8 +1108,8 @@ namespace libsignalservice.push {
     public sealed partial class DataMessage : pb::GeneratedMessage<DataMessage, DataMessage.Builder> {
       private DataMessage() { }
       private static readonly DataMessage defaultInstance = new DataMessage().MakeReadOnly();
-      private static readonly string[] _dataMessageFieldNames = new string[] { "attachments", "body", "flags", "group" };
-      private static readonly uint[] _dataMessageFieldTags = new uint[] { 18, 10, 32, 26 };
+      private static readonly string[] _dataMessageFieldNames = new string[] { "attachments", "body", "expireTimer", "flags", "group" };
+      private static readonly uint[] _dataMessageFieldTags = new uint[] { 18, 10, 40, 32, 26 };
       public static DataMessage DefaultInstance {
         get { return defaultInstance; }
       }
@@ -1133,6 +1135,7 @@ namespace libsignalservice.push {
       public static partial class Types {
         public enum Flags {
           END_SESSION = 1,
+          EXPIRATION_TIMER_UPDATE = 2,
         }
         
       }
@@ -1181,6 +1184,17 @@ namespace libsignalservice.push {
         get { return flags_; }
       }
       
+      public const int ExpireTimerFieldNumber = 5;
+      private bool hasExpireTimer;
+      private uint expireTimer_;
+      public bool HasExpireTimer {
+        get { return hasExpireTimer; }
+      }
+      [global::System.CLSCompliant(false)]
+      public uint ExpireTimer {
+        get { return expireTimer_; }
+      }
+      
       public override bool IsInitialized {
         get {
           return true;
@@ -1197,10 +1211,13 @@ namespace libsignalservice.push {
           output.WriteMessageArray(2, field_names[0], attachments_);
         }
         if (hasGroup) {
-          output.WriteMessage(3, field_names[3], Group);
+          output.WriteMessage(3, field_names[4], Group);
         }
         if (hasFlags) {
-          output.WriteUInt32(4, field_names[2], Flags);
+          output.WriteUInt32(4, field_names[3], Flags);
+        }
+        if (hasExpireTimer) {
+          output.WriteUInt32(5, field_names[2], ExpireTimer);
         }
         UnknownFields.WriteTo(output);
       }
@@ -1230,6 +1247,9 @@ namespace libsignalservice.push {
         }
         if (hasFlags) {
           size += pb::CodedOutputStream.ComputeUInt32Size(4, Flags);
+        }
+        if (hasExpireTimer) {
+          size += pb::CodedOutputStream.ComputeUInt32Size(5, ExpireTimer);
         }
         size += UnknownFields.SerializedSize;
         memoizedSerializedSize = size;
@@ -1366,6 +1386,9 @@ namespace libsignalservice.push {
           if (other.HasFlags) {
             Flags = other.Flags;
           }
+          if (other.HasExpireTimer) {
+            ExpireTimer = other.ExpireTimer;
+          }
           this.MergeUnknownFields(other.UnknownFields);
           return this;
         }
@@ -1428,6 +1451,10 @@ namespace libsignalservice.push {
               }
               case 32: {
                 result.hasFlags = input.ReadUInt32(ref result.flags_);
+                break;
+              }
+              case 40: {
+                result.hasExpireTimer = input.ReadUInt32(ref result.expireTimer_);
                 break;
               }
             }
@@ -1566,6 +1593,28 @@ namespace libsignalservice.push {
           result.flags_ = 0;
           return this;
         }
+        
+        public bool HasExpireTimer {
+          get { return result.hasExpireTimer; }
+        }
+        [global::System.CLSCompliant(false)]
+        public uint ExpireTimer {
+          get { return result.ExpireTimer; }
+          set { SetExpireTimer(value); }
+        }
+        [global::System.CLSCompliant(false)]
+        public Builder SetExpireTimer(uint value) {
+          PrepareBuilder();
+          result.hasExpireTimer = true;
+          result.expireTimer_ = value;
+          return this;
+        }
+        public Builder ClearExpireTimer() {
+          PrepareBuilder();
+          result.hasExpireTimer = false;
+          result.expireTimer_ = 0;
+          return this;
+        }
       }
       static DataMessage() {
         object.ReferenceEquals(global::libsignalservice.push.SignalServiceProtos.Descriptor, null);
@@ -1605,8 +1654,8 @@ namespace libsignalservice.push {
         public sealed partial class Sent : pb::GeneratedMessage<Sent, Sent.Builder> {
           private Sent() { }
           private static readonly Sent defaultInstance = new Sent().MakeReadOnly();
-          private static readonly string[] _sentFieldNames = new string[] { "destination", "message", "timestamp" };
-          private static readonly uint[] _sentFieldTags = new uint[] { 10, 26, 16 };
+          private static readonly string[] _sentFieldNames = new string[] { "destination", "expirationStartTimestamp", "message", "timestamp" };
+          private static readonly uint[] _sentFieldTags = new uint[] { 10, 32, 26, 16 };
           public static Sent DefaultInstance {
             get { return defaultInstance; }
           }
@@ -1658,6 +1707,17 @@ namespace libsignalservice.push {
             get { return message_ ?? global::libsignalservice.push.SignalServiceProtos.DataMessage.DefaultInstance; }
           }
           
+          public const int ExpirationStartTimestampFieldNumber = 4;
+          private bool hasExpirationStartTimestamp;
+          private ulong expirationStartTimestamp_;
+          public bool HasExpirationStartTimestamp {
+            get { return hasExpirationStartTimestamp; }
+          }
+          [global::System.CLSCompliant(false)]
+          public ulong ExpirationStartTimestamp {
+            get { return expirationStartTimestamp_; }
+          }
+          
           public override bool IsInitialized {
             get {
               return true;
@@ -1671,10 +1731,13 @@ namespace libsignalservice.push {
               output.WriteString(1, field_names[0], Destination);
             }
             if (hasTimestamp) {
-              output.WriteUInt64(2, field_names[2], Timestamp);
+              output.WriteUInt64(2, field_names[3], Timestamp);
             }
             if (hasMessage) {
-              output.WriteMessage(3, field_names[1], Message);
+              output.WriteMessage(3, field_names[2], Message);
+            }
+            if (hasExpirationStartTimestamp) {
+              output.WriteUInt64(4, field_names[1], ExpirationStartTimestamp);
             }
             UnknownFields.WriteTo(output);
           }
@@ -1701,6 +1764,9 @@ namespace libsignalservice.push {
             }
             if (hasMessage) {
               size += pb::CodedOutputStream.ComputeMessageSize(3, Message);
+            }
+            if (hasExpirationStartTimestamp) {
+              size += pb::CodedOutputStream.ComputeUInt64Size(4, ExpirationStartTimestamp);
             }
             size += UnknownFields.SerializedSize;
             memoizedSerializedSize = size;
@@ -1833,6 +1899,9 @@ namespace libsignalservice.push {
               if (other.HasMessage) {
                 MergeMessage(other.Message);
               }
+              if (other.HasExpirationStartTimestamp) {
+                ExpirationStartTimestamp = other.ExpirationStartTimestamp;
+              }
               this.MergeUnknownFields(other.UnknownFields);
               return this;
             }
@@ -1891,6 +1960,10 @@ namespace libsignalservice.push {
                     }
                     input.ReadMessage(subBuilder, extensionRegistry);
                     Message = subBuilder.BuildPartial();
+                    break;
+                  }
+                  case 32: {
+                    result.hasExpirationStartTimestamp = input.ReadUInt64(ref result.expirationStartTimestamp_);
                     break;
                   }
                 }
@@ -1983,6 +2056,28 @@ namespace libsignalservice.push {
               PrepareBuilder();
               result.hasMessage = false;
               result.message_ = null;
+              return this;
+            }
+            
+            public bool HasExpirationStartTimestamp {
+              get { return result.hasExpirationStartTimestamp; }
+            }
+            [global::System.CLSCompliant(false)]
+            public ulong ExpirationStartTimestamp {
+              get { return result.ExpirationStartTimestamp; }
+              set { SetExpirationStartTimestamp(value); }
+            }
+            [global::System.CLSCompliant(false)]
+            public Builder SetExpirationStartTimestamp(ulong value) {
+              PrepareBuilder();
+              result.hasExpirationStartTimestamp = true;
+              result.expirationStartTimestamp_ = value;
+              return this;
+            }
+            public Builder ClearExpirationStartTimestamp() {
+              PrepareBuilder();
+              result.hasExpirationStartTimestamp = false;
+              result.expirationStartTimestamp_ = 0UL;
               return this;
             }
           }

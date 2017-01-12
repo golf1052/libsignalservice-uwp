@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2017 smndtrl, golf1052
+ * Copyright (C) 2015-2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -71,16 +71,16 @@ namespace libsignalservice.crypto
         /// </summary>
         /// <param name="envelope">The received SignalServiceEnvelope</param>
         /// <returns>a decrypted SignalServiceContent</returns>
-        public TextSecureContent decrypt(SignalServiceEnvelope envelope)
+        public SignalServiceContent decrypt(SignalServiceEnvelope envelope)
         {
             try
             {
-                TextSecureContent content = new TextSecureContent();
+                SignalServiceContent content = new SignalServiceContent();
 
                 if (envelope.hasLegacyMessage())
                 {
                     DataMessage message = DataMessage.ParseFrom(decrypt(envelope, envelope.getLegacyMessage()));
-                    content = new TextSecureContent(createSignalServiceMessage(envelope, message));
+                    content = new SignalServiceContent(createSignalServiceMessage(envelope, message));
                 }
                 else if (envelope.hasContent())
                 {
@@ -88,11 +88,11 @@ namespace libsignalservice.crypto
 
                     if (message.HasDataMessage)
                     {
-                        content = new TextSecureContent(createSignalServiceMessage(envelope, message.DataMessage));
+                        content = new SignalServiceContent(createSignalServiceMessage(envelope, message.DataMessage));
                     }
                     else if (message.HasSyncMessage && localAddress.getNumber().Equals(envelope.getSource()))
                     {
-                        content = new TextSecureContent(createSynchronizeMessage(envelope, message.SyncMessage));
+                        content = new SignalServiceContent(createSynchronizeMessage(envelope, message.SyncMessage));
                     }
                 }
 
@@ -134,6 +134,7 @@ namespace libsignalservice.crypto
             SignalServiceGroup groupInfo = createGroupInfo(envelope, content);
             List<SignalServiceAttachment> attachments = new List<SignalServiceAttachment>();
             bool endSession = ((content.Flags & (uint)DataMessage.Types.Flags.END_SESSION) != 0);
+            bool expirationUpdate = ((content.Flags & (uint)DataMessage.Types.Flags.EXPIRATION_TIMER_UPDATE) != 0);
 
             foreach (AttachmentPointer pointer in content.AttachmentsList)
             {
@@ -146,22 +147,23 @@ namespace libsignalservice.crypto
             }
 
             return new SignalServiceDataMessage(envelope.getTimestamp(), groupInfo, attachments,
-                                             content.Body, endSession);
+                                             content.Body, endSession, (int)content.ExpireTimer, expirationUpdate);
         }
 
-        private TextSecureSyncMessage createSynchronizeMessage(SignalServiceEnvelope envelope, SyncMessage content)
+        private SignalServiceSyncMessage createSynchronizeMessage(SignalServiceEnvelope envelope, SyncMessage content)
         {
             if (content.HasSent)
             {
                 SyncMessage.Types.Sent sentContent = content.Sent;
-                return TextSecureSyncMessage.forSentTranscript(new SentTranscriptMessage(sentContent.Destination,
-                                                                           sentContent.Timestamp,
-                                                                           createSignalServiceMessage(envelope, sentContent.Message)));
+                return SignalServiceSyncMessage.forSentTranscript(new SentTranscriptMessage(sentContent.Destination,
+                                                                           (long)sentContent.Timestamp,
+                                                                           createSignalServiceMessage(envelope, sentContent.Message),
+                                                                           (long)sentContent.ExpirationStartTimestamp));
             }
 
             if (content.HasRequest)
             {
-                return TextSecureSyncMessage.forRequest(new RequestMessage(content.Request));
+                return SignalServiceSyncMessage.forRequest(new RequestMessage(content.Request));
             }
 
             if (content.ReadList.Count > 0)
@@ -173,10 +175,10 @@ namespace libsignalservice.crypto
                     readMessages.Add(new ReadMessage(read.Sender, (long)read.Timestamp));
                 }
 
-                return TextSecureSyncMessage.forRead(readMessages);
+                return SignalServiceSyncMessage.forRead(readMessages);
             }
 
-            return TextSecureSyncMessage.empty();
+            return SignalServiceSyncMessage.empty();
         }
 
         private SignalServiceGroup createGroupInfo(SignalServiceEnvelope envelope, DataMessage content)

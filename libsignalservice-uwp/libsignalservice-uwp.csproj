@@ -138,16 +138,14 @@
     <Compile Include="messages\multidevice\RequestMessage.cs" />
     <Compile Include="messages\multidevice\SentTranscriptMessage.cs" />
     <Compile Include="messages\multidevice\SignalServiceSyncMessage.cs" />
-    <Compile Include="messages\multidevice\TextSecureSyncMessage.cs" />
     <Compile Include="messages\SignalServiceAttachment.cs" />
     <Compile Include="messages\SignalServiceAttachmentPointer.cs" />
     <Compile Include="messages\SignalServiceAttachmentStream.cs" />
     <Compile Include="messages\SignalServiceContent.cs" />
-    <Compile Include="messages\TextSecureContent.cs" />
     <Compile Include="messages\SignalServiceDataMessage.cs" />
     <Compile Include="messages\SignalServiceEnvelope.cs" />
     <Compile Include="messages\SignalServiceGroup.cs" />
-    <Compile Include="messages\TextSecureSyncContext.cs" />
+    <Compile Include="messages\SignalServiceSyncContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="push\AuthorizationToken.cs" />
     <Compile Include="push\AccountAttributes.cs" />
