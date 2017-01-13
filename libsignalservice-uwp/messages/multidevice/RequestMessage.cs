@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2017 smndtrl, golf1052
+ * Copyright (C) 2015-2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,20 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using libsignalservice.push;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static libsignalservice.push.SignalServiceProtos.ContactDetails.Types;
 using static libsignalservice.push.SignalServiceProtos.SyncMessage.Types;
 
 namespace libsignalservice.messages.multidevice
 {
     public class RequestMessage
     {
-
         private readonly Request request;
 
         public RequestMessage(Request request)
@@ -44,6 +36,11 @@ namespace libsignalservice.messages.multidevice
         public bool isGroupsRequest()
         {
             return request.Type == Request.Types.Type.GROUPS;
+        }
+
+        public bool isBlockedListRequest()
+        {
+            return request.Type == Request.Types.Type.BLOCKED;
         }
     }
 }
