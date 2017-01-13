@@ -55,11 +55,16 @@ message SyncMessage {
     optional AttachmentPointer blob = 1;
   }
 
+  message Blocked {
+    repeated string numbers = 1;
+  }
+
   message Request {
     enum Type {
       UNKNOWN  = 0;
       CONTACTS = 1;
       GROUPS   = 2;
+	  BLOCKED  = 3;
     }
 
     optional Type type = 1;
@@ -75,6 +80,7 @@ message SyncMessage {
   optional Groups   groups   = 3;
   optional Request  request  = 4;
   repeated Read     read     = 5;
+  optional Blocked  blocked  = 6;
 }
 
 message AttachmentPointer {
@@ -108,6 +114,7 @@ message ContactDetails {
   optional string number = 1;
   optional string name   = 2;
   optional Avatar avatar = 3;
+  optional string color  = 4;
 }
 
 message GroupDetails {

@@ -149,6 +149,10 @@ namespace libsignalservice
             {
                 content = createMultiDeviceReadContent(message.getRead().ForceGetValue());
             }
+            else if (message.getBlockedList().HasValue)
+            {
+                content = createMultiDeviceBlockedContent(message.getBlockedList().ForceGetValue());
+            }
             else
             {
                 throw new Exception("Unsupported sync message!");
@@ -257,6 +261,17 @@ namespace libsignalservice
             }
 
             return container.SetSyncMessage(builder).Build().ToByteArray();
+        }
+
+        private byte[] createMultiDeviceBlockedContent(BlockedListMessage blocked)
+        {
+            Content.Builder container = Content.CreateBuilder();
+            SyncMessage.Builder syncMessage = SyncMessage.CreateBuilder();
+            SyncMessage.Types.Blocked.Builder blockedMessage = SyncMessage.Types.Blocked.CreateBuilder();
+
+            blockedMessage.AddRangeNumbers(blocked.getNumbers());
+
+            return container.SetSyncMessage(syncMessage.SetBlocked(blockedMessage)).Build().ToByteArray();
         }
 
         private byte[] createSentTranscriptMessage(byte[] content, May<SignalServiceAddress> recipient, ulong timestamp)

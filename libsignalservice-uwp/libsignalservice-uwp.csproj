@@ -125,6 +125,7 @@
     <Compile Include="crypto\ProvisioningCipher.cs" />
     <Compile Include="crypto\SignalServiceCipher.cs" />
     <Compile Include="crypto\UntrustedIdentityException.cs" />
+    <Compile Include="messages\multidevice\BlockedListMessage.cs" />
     <Compile Include="messages\multidevice\ChunkedInputStream.cs" />
     <Compile Include="messages\multidevice\ChunkedOutputStream.cs" />
     <Compile Include="messages\multidevice\DeviceContact.cs" />
