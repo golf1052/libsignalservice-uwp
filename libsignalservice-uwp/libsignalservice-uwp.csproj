@@ -184,6 +184,7 @@
     <Compile Include="push\PushTransportDetails.cs" />
     <Compile Include="push\SendMessageResponse.cs" />
     <Compile Include="push\SignalServiceProtos.cs" />
+    <Compile Include="push\SignalServiceUrl.cs" />
     <Compile Include="push\SignedPreKeyEntity.cs" />
     <Compile Include="push\StaleDevices.cs" />
     <Compile Include="push\SignalServiceAddress.cs" />
