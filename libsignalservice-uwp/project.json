@@ -4,6 +4,7 @@
     "libphonenumber_uwp": "1.0.0",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
     "Newtonsoft.Json": "7.0.1",
+    "signal-protocol-pcl": "2.4.0",
     "Strilanc.Value.May": "1.0.2"
   },
   "frameworks": {

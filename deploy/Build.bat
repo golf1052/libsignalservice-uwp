@@ -22,7 +22,7 @@ REM build Any CPU
 
 REM create NuGet package
 pushd deploy
-%NuGetPath% pack nuget\libsignalservice-uwp.nuspec -Prop Configuration=Release -outputdirectory .
+%NuGetPath% pack ..\libsignalservice-uwp\libsignalservice-uwp.nuspec -Prop Configuration=Release -outputdirectory .
 popd
 
 

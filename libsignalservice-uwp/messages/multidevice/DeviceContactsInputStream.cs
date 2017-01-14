@@ -24,13 +24,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
+using System.IO;
 
 namespace libsignalservice.messages.multidevice
 {
     public class DeviceContactsInputStream : ChunkedInputStream
     {
 
-        public DeviceContactsInputStream(IInputStream input)
+        public DeviceContactsInputStream(Stream input)
         : base(input)
         {
         }

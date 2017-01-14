@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Google.ProtocolBuffers;
 using libsignal;
@@ -396,7 +397,7 @@ namespace libsignalservice
         {
             byte[] attachmentKey = Util.getSecretBytes(64);
             PushAttachmentData attachmentData = new PushAttachmentData(attachment.getContentType(),
-                                                                       attachment.getInputStream(),
+                                                                       attachment.getInputStream().AsInputStream(),
                                                                        (ulong)attachment.getLength(),
                                                                        attachmentKey);
 

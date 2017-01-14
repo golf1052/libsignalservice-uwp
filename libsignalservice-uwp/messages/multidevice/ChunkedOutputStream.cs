@@ -30,7 +30,7 @@ namespace libsignalservice.messages.multidevice
 
         protected readonly Stream output;
 
-        public ChunkedOutputStream(IOutputStream output)
+        public ChunkedOutputStream(Stream output)
         {
             this.output = output;
         }

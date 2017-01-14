@@ -23,13 +23,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using static libsignalservice.push.SignalServiceProtos;
+using System.IO;
 
 namespace libsignalservice.messages.multidevice
 {
     public class DeviceContactsOutputStream : ChunkedOutputStream
     {
 
-        public DeviceContactsOutputStream(IOutputStream output)
+        public DeviceContactsOutputStream(Stream output)
             : base(output)
         {
         }

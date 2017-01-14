@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.IO;
 using Google.ProtocolBuffers;
 using libsignalservice.push;
 using Windows.Storage.Streams;
@@ -25,7 +26,7 @@ namespace libsignalservice.messages.multidevice
     public class DeviceGroupsOutputStream : ChunkedOutputStream
     {
 
-        public DeviceGroupsOutputStream(IOutputStream output)
+        public DeviceGroupsOutputStream(Stream output)
             : base(output)
         {
         }

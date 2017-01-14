@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>golf1052, langboost</authors>
+    <owners>golf1052, langboost</owners>
+    <licenseUrl>https://github.com/golf1052/libsignalservice-uwp/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/golf1052/libsignalservice-uwp</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/langboost/libtextsecure-uwp/master/NuGetIcon.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Signal Service helper library for Universal Windows applications. Based on https://github.com/WhisperSystems/libtextsecure-java</description>
+    <releaseNotes>SSL certificate validation is now configurable by the consuming library or application.</releaseNotes>
+    <copyright>Copyright 2015-2017</copyright>
+    <tags>signal</tags>
+  </metadata>
+</package>
