@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2017 smndtrl, golf1052
+ * Copyright (C) 2015-2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ namespace libsignalservice
     {
         private readonly PushServiceSocket socket;
         private readonly TrustStore trustStore;
-        private readonly String url;
+        private readonly SignalServiceUrl url;
         private readonly CredentialsProvider credentialsProvider;
         private readonly string userAgent;
 
@@ -49,8 +49,8 @@ namespace libsignalservice
         /// <param name="password">The Signal Service user password.</param>
         /// <param name="signalingKey">The 52 byte signaling key assigned to this user at registration</param>
         /// <param name="userAgent"></param>
-        public SignalServiceMessageReceiver(String url, TrustStore trustStore,
-                                         String user, String password, String signalingKey, string userAgent)
+        public SignalServiceMessageReceiver(SignalServiceUrl url, TrustStore trustStore,
+                                         string user, string password, string signalingKey, string userAgent)
             : this(url, trustStore, new StaticCredentialsProvider(user, password, signalingKey), userAgent)
         {
         }
@@ -63,7 +63,7 @@ namespace libsignalservice
         /// the server's TLS signing certificate</param>
         /// <param name="credentials">The Signal Service user's credentials</param>
         /// <param name="userAgent"></param>
-        public SignalServiceMessageReceiver(String url, TrustStore trustStore, CredentialsProvider credentials, string userAgent)
+        public SignalServiceMessageReceiver(SignalServiceUrl url, TrustStore trustStore, CredentialsProvider credentials, string userAgent)
         {
             this.url = url;
             this.trustStore = trustStore;
@@ -107,7 +107,7 @@ namespace libsignalservice
         /// <returns>A SignalServiceMessagePipe for receiving Signal Service messages.</returns>
         public SignalServiceMessagePipe createMessagePipe()
         {
-            WebSocketConnection webSocket = new WebSocketConnection(url, trustStore, credentialsProvider, userAgent);
+            WebSocketConnection webSocket = new WebSocketConnection(url.getUrl(), trustStore, credentialsProvider, userAgent);
             return new SignalServiceMessagePipe(webSocket, credentialsProvider);
         }
 

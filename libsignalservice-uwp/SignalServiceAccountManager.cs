@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2017 smndtrl, golf1052
+ * Copyright (C) 2015-2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ namespace libsignalservice
     {
 
         private readonly PushServiceSocket pushServiceSocket;
-        private readonly String user;
+        private readonly string user;
         private readonly string userAgent;
 
         /// <summary>
@@ -51,8 +51,8 @@ namespace libsignalservice
         /// <param name="user">A Signal Service phone number</param>
         /// <param name="password">A Signal Service password.</param>
         /// <param name="userAgent">A string which identifies the client software.</param>
-        public SignalServiceAccountManager(String url, TrustStore trustStore,
-                                        String user, String password, string userAgent)
+        public SignalServiceAccountManager(SignalServiceUrl url, TrustStore trustStore,
+                                        string user, string password, string userAgent)
         {
             this.pushServiceSocket = new PushServiceSocket(url, trustStore, new StaticCredentialsProvider(user, password, null), userAgent);
             this.user = user;
@@ -64,7 +64,7 @@ namespace libsignalservice
         /// </summary>
         /// <param name="wnsRegistrationId">The GCM id to register.  A call with an absent value will unregister.</param>
         /// <returns></returns>
-        public async Task<bool> setWnsId(May<String> wnsRegistrationId)// throws IOException
+        public async Task<bool> setWnsId(May<string> wnsRegistrationId)// throws IOException
         {
             if (wnsRegistrationId.HasValue)
             {
@@ -108,7 +108,7 @@ namespace libsignalservice
         /// for separate installs.</param>
         /// <param name="voice">A boolean that indicates whether the client supports secure voice (RedPhone) calls. </param>
         /// <returns></returns>
-        public async Task verifyAccountWithCode(String verificationCode, String signalingKey,
+        public async Task verifyAccountWithCode(string verificationCode, string signalingKey,
                                    uint signalProtocolRegistrationId, bool voice)
         {
             await this.pushServiceSocket.verifyAccountCode(verificationCode, signalingKey,
@@ -126,7 +126,7 @@ namespace libsignalservice
         /// for separate installs.</param>
         /// <param name="voice">A boolean that indicates whether the client supports secure voice (RedPhone) calls.</param>
         /// <returns></returns>
-        public async Task verifyAccountWithToken(String verificationToken, String signalingKey, uint signalProtocolRegistrationId, bool voice)
+        public async Task verifyAccountWithToken(string verificationToken, string signalingKey, uint signalProtocolRegistrationId, bool voice)
         {
             await this.pushServiceSocket.verifyAccountToken(verificationToken, signalingKey, signalProtocolRegistrationId, voice);
         }
@@ -141,7 +141,7 @@ namespace libsignalservice
         /// separate installs.</param>
         /// <param name="voice">A boolean that indicates whether the client supports secure voice (RedPhone)</param>
         /// <returns></returns>
-        public async Task setAccountAttributes(String signalingKey, uint signalProtocolRegistrationId, bool voice)
+        public async Task setAccountAttributes(string signalingKey, uint signalProtocolRegistrationId, bool voice)
         {
             await this.pushServiceSocket.setAccountAttributes(signalingKey, signalProtocolRegistrationId, voice, true);
         }
@@ -194,9 +194,9 @@ namespace libsignalservice
         /// </summary>
         /// <param name="e164number">The contact to check.</param>
         /// <returns>An optional ContactTokenDetails, present if registered, absent if not.</returns>
-        public async Task<May<ContactTokenDetails>> getContact(String e164number)// throws IOException
+        public async Task<May<ContactTokenDetails>> getContact(string e164number)// throws IOException
         {
-            String contactToken = createDirectoryServerToken(e164number, true);
+            string contactToken = createDirectoryServerToken(e164number, true);
             ContactTokenDetails contactTokenDetails = await this.pushServiceSocket.getContactTokenDetails(contactToken);
 
             if (contactTokenDetails != null)
@@ -212,9 +212,9 @@ namespace libsignalservice
         /// </summary>
         /// <param name="e164numbers">The contacts to check.</param>
         /// <returns>A list of ContactTokenDetails for the registered users.</returns>
-        public async Task<List<ContactTokenDetails>> getContacts(IList<String> e164numbers)
+        public async Task<List<ContactTokenDetails>> getContacts(IList<string> e164numbers)
         {
-            IDictionary<String, String> contactTokensMap = createDirectoryServerTokenMap(e164numbers);
+            IDictionary<string, string> contactTokensMap = createDirectoryServerTokenMap(e164numbers);
             List<ContactTokenDetails> activeTokens = await this.pushServiceSocket.retrieveDirectory(contactTokensMap.Keys);
 
             foreach (ContactTokenDetails activeToken in activeTokens)
@@ -227,20 +227,20 @@ namespace libsignalservice
             return activeTokens;
         }
 
-        public async Task<String> getAccoountVerificationToken()
+        public async Task<string> getAccoountVerificationToken()
         {
             return await this.pushServiceSocket.getAccountVerificationToken();
         }
 
-        public async Task<String> getNewDeviceVerificationCode()// throws IOException
+        public async Task<string> getNewDeviceVerificationCode()// throws IOException
         {
             return await this.pushServiceSocket.getNewDeviceVerificationCode();
         }
 
-        public async void addDevice(String deviceIdentifier,
+        public async void addDevice(string deviceIdentifier,
                               ECPublicKey deviceKey,
                               IdentityKeyPair identityKeyPair,
-                              String code)//throws InvalidKeyException, IOException
+                              string code)//throws InvalidKeyException, IOException
         {
             ProvisioningCipher cipher = new ProvisioningCipher(deviceKey);
             ProvisionMessage message = ProvisionMessage.CreateBuilder()
@@ -264,12 +264,12 @@ namespace libsignalservice
             await this.pushServiceSocket.removeDevice(deviceId);
         }
 
-        private String createDirectoryServerToken(String e164number, bool urlSafe)
+        private string createDirectoryServerToken(string e164number, bool urlSafe)
         {
             try
             {
                 byte[] token = Util.trim(Hash.sha1(Encoding.UTF8.GetBytes(e164number)), 10);
-                String encoded = Base64.encodeBytesWithoutPadding(token);
+                string encoded = Base64.encodeBytesWithoutPadding(token);
 
                 if (urlSafe) return encoded.Replace('+', '-').Replace('/', '_');
                 else return encoded;
@@ -280,11 +280,11 @@ namespace libsignalservice
             }
         }
 
-        private IDictionary<String, String> createDirectoryServerTokenMap(IList<String> e164numbers)
+        private IDictionary<string, string> createDirectoryServerTokenMap(IList<string> e164numbers)
         {
-            IDictionary<String, String> tokenMap = new Dictionary<String, String>(e164numbers.Count);
+            IDictionary<string, string> tokenMap = new Dictionary<string, string>(e164numbers.Count);
 
-            foreach (String number in e164numbers)
+            foreach (string number in e164numbers)
             {
                 var token = createDirectoryServerToken(number, false);
                 if (!tokenMap.ContainsKey(token)) // mimic java set behaviour

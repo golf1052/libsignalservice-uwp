@@ -45,7 +45,6 @@ namespace libsignalservice
         private readonly SignalProtocolStore store;
         private readonly SignalServiceAddress localAddress;
         private readonly May<EventListener> eventListener;
-        private readonly string userAgent;
 
         /// <summary>
         /// Construct a SignalServiceMessageSender
@@ -58,7 +57,7 @@ namespace libsignalservice
         /// <param name="eventListener">An optional event listener, which fires whenever sessions are
         /// setup or torn down for a recipient.</param>
         /// <param name="userAgent"></param>
-        public SignalServiceMessageSender(string url, TrustStore trustStore,
+        public SignalServiceMessageSender(SignalServiceUrl url, TrustStore trustStore,
                                        string user, string password,
                                        SignalProtocolStore store,
                                        May<EventListener> eventListener, string userAgent)
