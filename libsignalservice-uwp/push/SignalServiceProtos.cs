@@ -89,21 +89,22 @@ namespace libsignalservice.push {
             "T05UQUNUUxABEgoKBkdST1VQUxACEgsKB0JMT0NLRUQQAxopCgRSZWFkEg4K", 
             "BnNlbmRlchgBIAEoCRIRCgl0aW1lc3RhbXAYAiABKAQiYgoRQXR0YWNobWVu", 
             "dFBvaW50ZXISCgoCaWQYASABKAYSEwoLY29udGVudFR5cGUYAiABKAkSCwoD", 
-            "a2V5GAMgASgMEgwKBHNpemUYBCABKA0SEQoJdGh1bWJuYWlsGAUgASgMIs0B", 
+            "a2V5GAMgASgMEgwKBHNpemUYBCABKA0SEQoJdGh1bWJuYWlsGAUgASgMIt8B", 
             "CgxHcm91cENvbnRleHQSCgoCaWQYASABKAwSKwoEdHlwZRgCIAEoDjIdLnRl", 
             "eHRzZWN1cmUuR3JvdXBDb250ZXh0LlR5cGUSDAoEbmFtZRgDIAEoCRIPCgdt", 
             "ZW1iZXJzGAQgAygJEi0KBmF2YXRhchgFIAEoCzIdLnRleHRzZWN1cmUuQXR0", 
-            "YWNobWVudFBvaW50ZXIiNgoEVHlwZRILCgdVTktOT1dOEAASCgoGVVBEQVRF", 
-            "EAESCwoHREVMSVZFUhACEggKBFFVSVQQAyKfAQoOQ29udGFjdERldGFpbHMS", 
-            "DgoGbnVtYmVyGAEgASgJEgwKBG5hbWUYAiABKAkSMQoGYXZhdGFyGAMgASgL", 
-            "MiEudGV4dHNlY3VyZS5Db250YWN0RGV0YWlscy5BdmF0YXISDQoFY29sb3IY", 
-            "BCABKAkaLQoGQXZhdGFyEhMKC2NvbnRlbnRUeXBlGAEgASgJEg4KBmxlbmd0", 
-            "aBgCIAEoDSKvAQoMR3JvdXBEZXRhaWxzEgoKAmlkGAEgASgMEgwKBG5hbWUY", 
-            "AiABKAkSDwoHbWVtYmVycxgDIAMoCRIvCgZhdmF0YXIYBCABKAsyHy50ZXh0", 
-            "c2VjdXJlLkdyb3VwRGV0YWlscy5BdmF0YXISFAoGYWN0aXZlGAUgASgIOgR0", 
-            "cnVlGi0KBkF2YXRhchITCgtjb250ZW50VHlwZRgBIAEoCRIOCgZsZW5ndGgY", 
-            "AiABKA1CQgorb3JnLndoaXNwZXJzeXN0ZW1zLnRleHRzZWN1cmUuaW50ZXJu", 
-          "YWwucHVzaEITU2lnbmFsU2VydmljZVByb3Rvcw=="));
+            "YWNobWVudFBvaW50ZXIiSAoEVHlwZRILCgdVTktOT1dOEAASCgoGVVBEQVRF", 
+            "EAESCwoHREVMSVZFUhACEggKBFFVSVQQAxIQCgxSRVFVRVNUX0lORk8QBCKf", 
+            "AQoOQ29udGFjdERldGFpbHMSDgoGbnVtYmVyGAEgASgJEgwKBG5hbWUYAiAB", 
+            "KAkSMQoGYXZhdGFyGAMgASgLMiEudGV4dHNlY3VyZS5Db250YWN0RGV0YWls", 
+            "cy5BdmF0YXISDQoFY29sb3IYBCABKAkaLQoGQXZhdGFyEhMKC2NvbnRlbnRU", 
+            "eXBlGAEgASgJEg4KBmxlbmd0aBgCIAEoDSKvAQoMR3JvdXBEZXRhaWxzEgoK", 
+            "AmlkGAEgASgMEgwKBG5hbWUYAiABKAkSDwoHbWVtYmVycxgDIAMoCRIvCgZh", 
+            "dmF0YXIYBCABKAsyHy50ZXh0c2VjdXJlLkdyb3VwRGV0YWlscy5BdmF0YXIS", 
+            "FAoGYWN0aXZlGAUgASgIOgR0cnVlGi0KBkF2YXRhchITCgtjb250ZW50VHlw", 
+            "ZRgBIAEoCRIOCgZsZW5ndGgYAiABKA1CQgorb3JnLndoaXNwZXJzeXN0ZW1z", 
+            "LnRleHRzZWN1cmUuaW50ZXJuYWwucHVzaEITU2lnbmFsU2VydmljZVByb3Rv", 
+          "cw=="));
       pbd::FileDescriptor.InternalDescriptorAssigner assigner = delegate(pbd::FileDescriptor root) {
         descriptor = root;
         internal__static_textsecure_Envelope__Descriptor = Descriptor.MessageTypes[0];
@@ -4716,6 +4717,7 @@ namespace libsignalservice.push {
           UPDATE = 1,
           DELIVER = 2,
           QUIT = 3,
+          REQUEST_INFO = 4,
         }
         
       }

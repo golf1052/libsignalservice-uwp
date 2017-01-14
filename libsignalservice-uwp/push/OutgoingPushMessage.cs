@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2015-2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,11 +16,6 @@
  */
 
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace libsignalservice.push
 {
@@ -34,20 +29,25 @@ namespace libsignalservice.push
         [JsonProperty]
         private uint destinationRegistrationId;
         [JsonProperty]
-        private String body;
+        private string body;
         [JsonProperty]
-        private String content;
+        private string content;
+        [JsonProperty]
+        private bool silent;
 
         public OutgoingPushMessage(uint type,
                                    uint destinationDeviceId,
                                    uint destinationRegistrationId,
-                                   String legacyMessage, String content)
+                                   string legacyMessage,
+                                   string content,
+                                   bool silent)
         {
             this.type = type;
             this.destinationDeviceId = destinationDeviceId;
             this.destinationRegistrationId = destinationRegistrationId;
             this.body = legacyMessage;
             this.content = content;
+            this.silent = silent;
         }
 
         public uint getDestinationDeviceId()
@@ -55,7 +55,7 @@ namespace libsignalservice.push
             return destinationDeviceId;
         }
 
-        public String getBody()
+        public string getBody()
         {
             return body;
         }

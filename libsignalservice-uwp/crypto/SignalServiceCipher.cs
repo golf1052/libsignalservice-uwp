@@ -46,7 +46,7 @@ namespace libsignalservice.crypto
             this.localAddress = localAddress;
         }
 
-        public OutgoingPushMessage encrypt(SignalProtocolAddress destination, byte[] unpaddedMessage, bool legacy)
+        public OutgoingPushMessage encrypt(SignalProtocolAddress destination, byte[] unpaddedMessage, bool legacy, bool silent)
         {
             SessionCipher sessionCipher = new SessionCipher(signalProtocolStore, destination);
             PushTransportDetails transportDetails = new PushTransportDetails(sessionCipher.getSessionVersion());
@@ -63,7 +63,12 @@ namespace libsignalservice.crypto
                 default: throw new Exception("Bad type: " + message.getType());
             }
 
-            return new OutgoingPushMessage(type, destination.getDeviceId(), remoteRegistrationId, legacy ? body : null, legacy ? null : body);
+            return new OutgoingPushMessage(type,
+                destination.getDeviceId(),
+                remoteRegistrationId,
+                legacy ? body : null,
+                legacy ? null : body,
+                silent);
         }
 
         /// <summary>
@@ -192,6 +197,7 @@ namespace libsignalservice.crypto
                 case GroupContext.Types.Type.DELIVER: type = SignalServiceGroup.Type.DELIVER; break;
                 case GroupContext.Types.Type.UPDATE: type = SignalServiceGroup.Type.UPDATE; break;
                 case GroupContext.Types.Type.QUIT: type = SignalServiceGroup.Type.QUIT; break;
+                case GroupContext.Types.Type.REQUEST_INFO: type = SignalServiceGroup.Type.REQUEST_INFO; break;
                 default: type = SignalServiceGroup.Type.UNKNOWN; break;
             }
 
