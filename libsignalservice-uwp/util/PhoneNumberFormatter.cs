@@ -1,5 +1,5 @@
 ﻿/** 
- * Copyright (C) 2015 smndtrl
+ * Copyright (C) 2015-2017 smndtrl, golf1052
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ using System.Threading.Tasks;
 namespace CustomExtensions {
     public static class StringExtension
     {
-        public static string ReplaceAll(this String str, string regex, string replacement)
+        public static string ReplaceAll(this string str, string regex, string replacement)
         {
 
             return Regex.Replace(str, regex, replacement) ;
@@ -36,23 +36,20 @@ namespace CustomExtensions {
 }
 namespace libsignalservice.util
 {
-    /**
-    * Phone number formats are a pain.
-    *
-    * @author
-    *
-    */
-
     using CustomExtensions;
+
+    /// <summary>
+    /// Phone number formats are a pain.
+    /// </summary>
     public class PhoneNumberFormatter
     {
 
-        public static bool isValidNumber(String number)
+        public static bool isValidNumber(string number)
         {
             return (new Regex("^\\+[0-9]{10,}").Match(number)).Success;
         }
 
-        private static String impreciseFormatNumber(String number, String localNumber)
+        private static string impreciseFormatNumber(string number, string localNumber)
         //throws InvalidNumberException
         {
             number = number.ReplaceAll("[^0-9+]", "");
@@ -71,7 +68,7 @@ namespace libsignalservice.util
             return "+" + localNumber.Substring(0, difference) + number;
         }
 
-        public static String formatNumberInternational(String number)
+        public static string formatNumberInternational(string number)
         {
             try
             {
@@ -86,7 +83,7 @@ namespace libsignalservice.util
             }
         }
 
-        public static String formatNumber(String number, String localNumber) //throws InvalidNumberException
+        public static string formatNumber(string number, string localNumber) //throws InvalidNumberException
         {
             if (number.Contains("@"))
             {
@@ -100,15 +97,15 @@ namespace libsignalservice.util
                 throw new InvalidNumberException("No valid characters found.");
             }
 
-            if (number[0] == '+')
-                return number;
+            //if (number[0] == '+')
+            //    return number;
 
             try
             {
                 PhoneNumberUtil util = PhoneNumberUtil.GetInstance();
                 PhoneNumber localNumberObject = util.Parse(localNumber, null);
 
-                String localCountryCode = util.GetRegionCodeForNumber(localNumberObject);
+                string localCountryCode = util.GetRegionCodeForNumber(localNumberObject);
                 //Log.w(TAG, "Got local CC: " + localCountryCode);
 
                 PhoneNumber numberObject = util.Parse(number, localCountryCode);
@@ -121,13 +118,13 @@ namespace libsignalservice.util
             }
         }
 
-        public static String getRegionDisplayName(String regionCode)
+        public static string getRegionDisplayName(string regionCode)
         {
             return (regionCode == null || regionCode.Equals("ZZ") || regionCode.Equals(PhoneNumberUtil.REGION_CODE_FOR_NON_GEO_ENTITY))
                 ? "Unknown country" : "TODO COUNTRY NAM";
         }
 
-        public static String formatE164(String countryCode, String number)
+        public static string formatE164(string countryCode, string number)
         {
             if (countryCode == string.Empty || number == string.Empty) return string.Empty;
             try
@@ -151,7 +148,7 @@ namespace libsignalservice.util
                 number.ReplaceAll("[^0-9]", "");
             }
 
-  public static String getInternationalFormatFromE164(String e164number)
+  public static string getInternationalFormatFromE164(string e164number)
         {
             try
             {
