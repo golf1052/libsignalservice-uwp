@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -214,6 +215,11 @@ namespace libsignalservice.util
                 throw new ArithmeticException("integer overflow");
             }
             return (int)value;
+        }
+
+        public static IList<T> immutableList<T>(List<T> elements)
+        {
+            return ImmutableList.CreateRange(elements);
         }
 
         internal static byte[] trim(object p, int v)

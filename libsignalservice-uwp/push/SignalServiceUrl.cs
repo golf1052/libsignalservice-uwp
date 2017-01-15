@@ -51,5 +51,10 @@ namespace libsignalservice.push
         {
             return trustStore;
         }
+
+        //public May<ConnectionSpec> getConnectionSpec()
+        //{
+        //    return connectionSpec;
+        //}
     }
 }

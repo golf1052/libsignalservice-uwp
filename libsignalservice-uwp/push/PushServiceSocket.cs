@@ -759,8 +759,8 @@ namespace libsignalservice.push
 
         public SignalConnectionInformation(SignalServiceUrl signalServiceUrl)
         {
-            this.url = url;
-            this.hostHeader = hostHeader;
+            this.url = signalServiceUrl.getUrl();
+            this.hostHeader = signalServiceUrl.getHostHeader();
             //this.trustManagers = BlacklistingTrustManager.createFor(signalServiceUrl.getTrustStore());
         }
 
@@ -777,6 +777,11 @@ namespace libsignalservice.push
         //TrustManager[] getTrustManagers()
         //{
         //    return trustManagers;
+        //}
+
+        //public May<ConnectionSpec> getConnectionSpec()
+        //{
+        //    return connectionSpec;
         //}
     }
 }
