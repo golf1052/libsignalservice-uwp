@@ -44,6 +44,7 @@ namespace libsignalservice
         private readonly PushServiceSocket socket;
         private readonly SignalProtocolStore store;
         private readonly SignalServiceAddress localAddress;
+        private readonly May<SignalServiceMessagePipe> pipe;
         private readonly May<EventListener> eventListener;
 
         /// <summary>
@@ -59,11 +60,13 @@ namespace libsignalservice
         public SignalServiceMessageSender(SignalServiceUrl[] urls,
                                        string user, string password,
                                        SignalProtocolStore store,
+                                       May<SignalServiceMessagePipe> pipe,
                                        May<EventListener> eventListener, string userAgent)
         {
             this.socket = new PushServiceSocket(urls, new StaticCredentialsProvider(user, password, null), userAgent);
             this.store = store;
             this.localAddress = new SignalServiceAddress(user);
+            this.pipe = pipe;
             this.eventListener = eventListener;
         }
 
@@ -302,10 +305,6 @@ namespace libsignalservice
             return builder.Build();
         }
 
-        
-
-        
-
         private async Task<SendMessageResponse> sendMessage(List<SignalServiceAddress> recipients, long timestamp, byte[] content, bool legacy)
         {
             IList<UntrustedIdentityException> untrustedIdentities = new List<UntrustedIdentityException>(); // was linkedlist
@@ -352,6 +351,21 @@ namespace libsignalservice
                 try
                 {
                     OutgoingPushMessageList messages = await getEncryptedMessages(socket, recipient, timestamp, content, legacy, silent);
+
+                    if (pipe.HasValue)
+                    {
+                        try
+                        {
+                            Debug.WriteLine("Transmitting over pipe...");
+                            return pipe.ForceGetValue().send(messages);
+                        }
+                        catch (IOException e)
+                        {
+                            Debug.WriteLine("Falling back to new connection...");
+                        }
+                    }
+
+                    Debug.WriteLine("Not transmitting over pipe...");
                     return await socket.sendMessage(messages);
                 }
                 catch (MismatchedDevicesException mde)

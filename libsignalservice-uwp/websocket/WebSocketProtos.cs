@@ -32,28 +32,28 @@ namespace libsignalservice.websocket {
     static WebSocketProtos() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChhXZWJTb2NrZXRSZXNvdXJjZXMucHJvdG8SCnRleHRzZWN1cmUiTwoXV2Vi", 
+            "ChhXZWJTb2NrZXRSZXNvdXJjZXMucHJvdG8SCnRleHRzZWN1cmUiYAoXV2Vi", 
             "U29ja2V0UmVxdWVzdE1lc3NhZ2USDAoEdmVyYhgBIAEoCRIMCgRwYXRoGAIg", 
-            "ASgJEgwKBGJvZHkYAyABKAwSCgoCaWQYBCABKAQiVQoYV2ViU29ja2V0UmVz", 
-            "cG9uc2VNZXNzYWdlEgoKAmlkGAEgASgEEg4KBnN0YXR1cxgCIAEoDRIPCgdt", 
-            "ZXNzYWdlGAMgASgJEgwKBGJvZHkYBCABKAwi4QEKEFdlYlNvY2tldE1lc3Nh", 
-            "Z2USLwoEdHlwZRgBIAEoDjIhLnRleHRzZWN1cmUuV2ViU29ja2V0TWVzc2Fn", 
-            "ZS5UeXBlEjQKB3JlcXVlc3QYAiABKAsyIy50ZXh0c2VjdXJlLldlYlNvY2tl", 
-            "dFJlcXVlc3RNZXNzYWdlEjYKCHJlc3BvbnNlGAMgASgLMiQudGV4dHNlY3Vy", 
-            "ZS5XZWJTb2NrZXRSZXNwb25zZU1lc3NhZ2UiLgoEVHlwZRILCgdVTktOT1dO", 
-            "EAASCwoHUkVRVUVTVBABEgwKCFJFU1BPTlNFEAJCQwowb3JnLndoaXNwZXJz", 
-            "eXN0ZW1zLnRleHRzZWN1cmUuaW50ZXJuYWwud2Vic29ja2V0Qg9XZWJTb2Nr", 
-          "ZXRQcm90b3M="));
+            "ASgJEgwKBGJvZHkYAyABKAwSDwoHaGVhZGVycxgFIAMoCRIKCgJpZBgEIAEo", 
+            "BCJmChhXZWJTb2NrZXRSZXNwb25zZU1lc3NhZ2USCgoCaWQYASABKAQSDgoG", 
+            "c3RhdHVzGAIgASgNEg8KB21lc3NhZ2UYAyABKAkSDwoHaGVhZGVycxgFIAMo", 
+            "CRIMCgRib2R5GAQgASgMIuEBChBXZWJTb2NrZXRNZXNzYWdlEi8KBHR5cGUY", 
+            "ASABKA4yIS50ZXh0c2VjdXJlLldlYlNvY2tldE1lc3NhZ2UuVHlwZRI0Cgdy", 
+            "ZXF1ZXN0GAIgASgLMiMudGV4dHNlY3VyZS5XZWJTb2NrZXRSZXF1ZXN0TWVz", 
+            "c2FnZRI2CghyZXNwb25zZRgDIAEoCzIkLnRleHRzZWN1cmUuV2ViU29ja2V0", 
+            "UmVzcG9uc2VNZXNzYWdlIi4KBFR5cGUSCwoHVU5LTk9XThAAEgsKB1JFUVVF", 
+            "U1QQARIMCghSRVNQT05TRRACQkMKMG9yZy53aGlzcGVyc3lzdGVtcy50ZXh0", 
+          "c2VjdXJlLmludGVybmFsLndlYnNvY2tldEIPV2ViU29ja2V0UHJvdG9z"));
       pbd::FileDescriptor.InternalDescriptorAssigner assigner = delegate(pbd::FileDescriptor root) {
         descriptor = root;
         internal__static_textsecure_WebSocketRequestMessage__Descriptor = Descriptor.MessageTypes[0];
         internal__static_textsecure_WebSocketRequestMessage__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::libsignalservice.websocket.WebSocketProtos.WebSocketRequestMessage, global::libsignalservice.websocket.WebSocketProtos.WebSocketRequestMessage.Builder>(internal__static_textsecure_WebSocketRequestMessage__Descriptor,
-                new string[] { "Verb", "Path", "Body", "Id", });
+                new string[] { "Verb", "Path", "Body", "Headers", "Id", });
         internal__static_textsecure_WebSocketResponseMessage__Descriptor = Descriptor.MessageTypes[1];
         internal__static_textsecure_WebSocketResponseMessage__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::libsignalservice.websocket.WebSocketProtos.WebSocketResponseMessage, global::libsignalservice.websocket.WebSocketProtos.WebSocketResponseMessage.Builder>(internal__static_textsecure_WebSocketResponseMessage__Descriptor,
-                new string[] { "Id", "Status", "Message", "Body", });
+                new string[] { "Id", "Status", "Message", "Headers", "Body", });
         internal__static_textsecure_WebSocketMessage__Descriptor = Descriptor.MessageTypes[2];
         internal__static_textsecure_WebSocketMessage__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::libsignalservice.websocket.WebSocketProtos.WebSocketMessage, global::libsignalservice.websocket.WebSocketProtos.WebSocketMessage.Builder>(internal__static_textsecure_WebSocketMessage__Descriptor,
@@ -71,8 +71,8 @@ namespace libsignalservice.websocket {
     public sealed partial class WebSocketRequestMessage : pb::GeneratedMessage<WebSocketRequestMessage, WebSocketRequestMessage.Builder> {
       private WebSocketRequestMessage() { }
       private static readonly WebSocketRequestMessage defaultInstance = new WebSocketRequestMessage().MakeReadOnly();
-      private static readonly string[] _webSocketRequestMessageFieldNames = new string[] { "body", "id", "path", "verb" };
-      private static readonly uint[] _webSocketRequestMessageFieldTags = new uint[] { 26, 32, 18, 10 };
+      private static readonly string[] _webSocketRequestMessageFieldNames = new string[] { "body", "headers", "id", "path", "verb" };
+      private static readonly uint[] _webSocketRequestMessageFieldTags = new uint[] { 26, 42, 32, 18, 10 };
       public static WebSocketRequestMessage DefaultInstance {
         get { return defaultInstance; }
       }
@@ -123,6 +123,18 @@ namespace libsignalservice.websocket {
         get { return body_; }
       }
       
+      public const int HeadersFieldNumber = 5;
+      private pbc::PopsicleList<string> headers_ = new pbc::PopsicleList<string>();
+      public scg::IList<string> HeadersList {
+        get { return pbc::Lists.AsReadOnly(headers_); }
+      }
+      public int HeadersCount {
+        get { return headers_.Count; }
+      }
+      public string GetHeaders(int index) {
+        return headers_[index];
+      }
+      
       public const int IdFieldNumber = 4;
       private bool hasId;
       private ulong id_;
@@ -144,16 +156,19 @@ namespace libsignalservice.websocket {
         CalcSerializedSize();
         string[] field_names = _webSocketRequestMessageFieldNames;
         if (hasVerb) {
-          output.WriteString(1, field_names[3], Verb);
+          output.WriteString(1, field_names[4], Verb);
         }
         if (hasPath) {
-          output.WriteString(2, field_names[2], Path);
+          output.WriteString(2, field_names[3], Path);
         }
         if (hasBody) {
           output.WriteBytes(3, field_names[0], Body);
         }
         if (hasId) {
-          output.WriteUInt64(4, field_names[1], Id);
+          output.WriteUInt64(4, field_names[2], Id);
+        }
+        if (headers_.Count > 0) {
+          output.WriteStringArray(5, field_names[1], headers_);
         }
         UnknownFields.WriteTo(output);
       }
@@ -180,6 +195,14 @@ namespace libsignalservice.websocket {
         }
         if (hasBody) {
           size += pb::CodedOutputStream.ComputeBytesSize(3, Body);
+        }
+        {
+          int dataSize = 0;
+          foreach (string element in HeadersList) {
+            dataSize += pb::CodedOutputStream.ComputeStringSizeNoTag(element);
+          }
+          size += dataSize;
+          size += 1 * headers_.Count;
         }
         if (hasId) {
           size += pb::CodedOutputStream.ComputeUInt64Size(4, Id);
@@ -219,6 +242,7 @@ namespace libsignalservice.websocket {
         return ((Builder) CreateBuilder().MergeFrom(input, extensionRegistry)).BuildParsed();
       }
       private WebSocketRequestMessage MakeReadOnly() {
+        headers_.MakeReadOnly();
         return this;
       }
       
@@ -315,6 +339,9 @@ namespace libsignalservice.websocket {
           if (other.HasBody) {
             Body = other.Body;
           }
+          if (other.headers_.Count != 0) {
+            result.headers_.Add(other.headers_);
+          }
           if (other.HasId) {
             Id = other.Id;
           }
@@ -375,6 +402,10 @@ namespace libsignalservice.websocket {
               }
               case 32: {
                 result.hasId = input.ReadUInt64(ref result.id_);
+                break;
+              }
+              case 42: {
+                input.ReadStringArray(tag, field_name, result.headers_);
                 break;
               }
             }
@@ -450,6 +481,38 @@ namespace libsignalservice.websocket {
           return this;
         }
         
+        public pbc::IPopsicleList<string> HeadersList {
+          get { return PrepareBuilder().headers_; }
+        }
+        public int HeadersCount {
+          get { return result.HeadersCount; }
+        }
+        public string GetHeaders(int index) {
+          return result.GetHeaders(index);
+        }
+        public Builder SetHeaders(int index, string value) {
+          pb::ThrowHelper.ThrowIfNull(value, "value");
+          PrepareBuilder();
+          result.headers_[index] = value;
+          return this;
+        }
+        public Builder AddHeaders(string value) {
+          pb::ThrowHelper.ThrowIfNull(value, "value");
+          PrepareBuilder();
+          result.headers_.Add(value);
+          return this;
+        }
+        public Builder AddRangeHeaders(scg::IEnumerable<string> values) {
+          PrepareBuilder();
+          result.headers_.Add(values);
+          return this;
+        }
+        public Builder ClearHeaders() {
+          PrepareBuilder();
+          result.headers_.Clear();
+          return this;
+        }
+        
         public bool HasId {
           get { return result.hasId; }
         }
@@ -481,8 +544,8 @@ namespace libsignalservice.websocket {
     public sealed partial class WebSocketResponseMessage : pb::GeneratedMessage<WebSocketResponseMessage, WebSocketResponseMessage.Builder> {
       private WebSocketResponseMessage() { }
       private static readonly WebSocketResponseMessage defaultInstance = new WebSocketResponseMessage().MakeReadOnly();
-      private static readonly string[] _webSocketResponseMessageFieldNames = new string[] { "body", "id", "message", "status" };
-      private static readonly uint[] _webSocketResponseMessageFieldTags = new uint[] { 34, 8, 26, 16 };
+      private static readonly string[] _webSocketResponseMessageFieldNames = new string[] { "body", "headers", "id", "message", "status" };
+      private static readonly uint[] _webSocketResponseMessageFieldTags = new uint[] { 34, 42, 8, 26, 16 };
       public static WebSocketResponseMessage DefaultInstance {
         get { return defaultInstance; }
       }
@@ -535,6 +598,18 @@ namespace libsignalservice.websocket {
         get { return message_; }
       }
       
+      public const int HeadersFieldNumber = 5;
+      private pbc::PopsicleList<string> headers_ = new pbc::PopsicleList<string>();
+      public scg::IList<string> HeadersList {
+        get { return pbc::Lists.AsReadOnly(headers_); }
+      }
+      public int HeadersCount {
+        get { return headers_.Count; }
+      }
+      public string GetHeaders(int index) {
+        return headers_[index];
+      }
+      
       public const int BodyFieldNumber = 4;
       private bool hasBody;
       private pb::ByteString body_ = pb::ByteString.Empty;
@@ -555,16 +630,19 @@ namespace libsignalservice.websocket {
         CalcSerializedSize();
         string[] field_names = _webSocketResponseMessageFieldNames;
         if (hasId) {
-          output.WriteUInt64(1, field_names[1], Id);
+          output.WriteUInt64(1, field_names[2], Id);
         }
         if (hasStatus) {
-          output.WriteUInt32(2, field_names[3], Status);
+          output.WriteUInt32(2, field_names[4], Status);
         }
         if (hasMessage) {
-          output.WriteString(3, field_names[2], Message);
+          output.WriteString(3, field_names[3], Message);
         }
         if (hasBody) {
           output.WriteBytes(4, field_names[0], Body);
+        }
+        if (headers_.Count > 0) {
+          output.WriteStringArray(5, field_names[1], headers_);
         }
         UnknownFields.WriteTo(output);
       }
@@ -591,6 +669,14 @@ namespace libsignalservice.websocket {
         }
         if (hasMessage) {
           size += pb::CodedOutputStream.ComputeStringSize(3, Message);
+        }
+        {
+          int dataSize = 0;
+          foreach (string element in HeadersList) {
+            dataSize += pb::CodedOutputStream.ComputeStringSizeNoTag(element);
+          }
+          size += dataSize;
+          size += 1 * headers_.Count;
         }
         if (hasBody) {
           size += pb::CodedOutputStream.ComputeBytesSize(4, Body);
@@ -630,6 +716,7 @@ namespace libsignalservice.websocket {
         return ((Builder) CreateBuilder().MergeFrom(input, extensionRegistry)).BuildParsed();
       }
       private WebSocketResponseMessage MakeReadOnly() {
+        headers_.MakeReadOnly();
         return this;
       }
       
@@ -726,6 +813,9 @@ namespace libsignalservice.websocket {
           if (other.HasMessage) {
             Message = other.Message;
           }
+          if (other.headers_.Count != 0) {
+            result.headers_.Add(other.headers_);
+          }
           if (other.HasBody) {
             Body = other.Body;
           }
@@ -786,6 +876,10 @@ namespace libsignalservice.websocket {
               }
               case 34: {
                 result.hasBody = input.ReadBytes(ref result.body_);
+                break;
+              }
+              case 42: {
+                input.ReadStringArray(tag, field_name, result.headers_);
                 break;
               }
             }
@@ -860,6 +954,38 @@ namespace libsignalservice.websocket {
           PrepareBuilder();
           result.hasMessage = false;
           result.message_ = "";
+          return this;
+        }
+        
+        public pbc::IPopsicleList<string> HeadersList {
+          get { return PrepareBuilder().headers_; }
+        }
+        public int HeadersCount {
+          get { return result.HeadersCount; }
+        }
+        public string GetHeaders(int index) {
+          return result.GetHeaders(index);
+        }
+        public Builder SetHeaders(int index, string value) {
+          pb::ThrowHelper.ThrowIfNull(value, "value");
+          PrepareBuilder();
+          result.headers_[index] = value;
+          return this;
+        }
+        public Builder AddHeaders(string value) {
+          pb::ThrowHelper.ThrowIfNull(value, "value");
+          PrepareBuilder();
+          result.headers_.Add(value);
+          return this;
+        }
+        public Builder AddRangeHeaders(scg::IEnumerable<string> values) {
+          PrepareBuilder();
+          result.headers_.Add(values);
+          return this;
+        }
+        public Builder ClearHeaders() {
+          PrepareBuilder();
+          result.headers_.Clear();
           return this;
         }
         

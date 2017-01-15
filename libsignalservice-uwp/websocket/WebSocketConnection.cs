@@ -1,5 +1,5 @@
 ﻿/** 
-* Copyright (C) 2017 smndtrl, golf1052
+* Copyright (C) 2015-2017 smndtrl, golf1052
 * 
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Google.ProtocolBuffers;
 using libsignal.util;
 using libsignalservice.push;
@@ -32,45 +35,51 @@ namespace libsignalservice.websocket
 {
     public class WebSocketConnection //: WebSocketEventListener
     {
-
-
         private static readonly int KEEPALIVE_TIMEOUT_SECONDS = 55;
 
         private readonly LinkedList<WebSocketRequestMessage> incomingRequests = new LinkedList<WebSocketRequestMessage>();
+        private readonly Dictionary<long, Tuple<int, string>> outgoingRequests = new Dictionary<long, Tuple<int, string>>();
 
-        private readonly String wsUri;
+        private readonly string wsUri;
         private readonly TrustStore trustStore;
         private readonly CredentialsProvider credentialsProvider;
         private readonly string userAgent;
-
 
         private Timer keepAliveTimer;
 
         MessageWebSocket socket;
         DataWriter messageWriter;
+        private int attempts;
+        private bool connected;
 
         public event EventHandler Connected;
         public event EventHandler Closed;
         public event TypedEventHandler<WebSocketConnection, WebSocketRequestMessage> MessageReceived;
 
-        public WebSocketConnection(String httpUri, TrustStore trustStore, CredentialsProvider credentialsProvider, string userAgent)
+        public WebSocketConnection(string httpUri, TrustStore trustStore, CredentialsProvider credentialsProvider, string userAgent)
         {
             this.trustStore = trustStore;
-             this.credentialsProvider = credentialsProvider;
+            this.credentialsProvider = credentialsProvider;
+            this.userAgent = userAgent;
+            this.attempts = 0;
+            this.connected = false;
             this.wsUri = httpUri.Replace("https://", "wss://")
-                                              .Replace("http://", "ws://") + $"/v1/websocket/?login={credentialsProvider.GetUser()}&password={credentialsProvider.GetPassword()}";
+                .Replace("http://", "ws://") + $"/v1/websocket/?login={credentialsProvider.GetUser()}&password={credentialsProvider.GetPassword()}";
             this.userAgent = userAgent;
         }
 
 
-        public async void connect()
+        public async Task connect()
         {
             Debug.WriteLine("WSC connect()...");
 
             if (socket == null)
             {
                 socket = new MessageWebSocket();
-                if (userAgent != null) socket.SetRequestHeader("X-Signal-Agent", userAgent);
+                if (userAgent != null)
+                {
+                    socket.SetRequestHeader("X-Signal-Agent", userAgent);
+                }
                 socket.MessageReceived += OnMessageReceived;
                 socket.Closed += OnClosed;
 
@@ -78,10 +87,13 @@ namespace libsignalservice.websocket
                 {
                     Uri server = new Uri(wsUri);
                     await socket.ConnectAsync(server);
+                    if (socket != null)
+                    {
+                        attempts = 0;
+                        connected = true;
+                    }
                     //Connected(this, EventArgs.Empty);
                     keepAliveTimer = new Timer(sendKeepAlive, null, TimeSpan.FromSeconds(KEEPALIVE_TIMEOUT_SECONDS), TimeSpan.FromSeconds(KEEPALIVE_TIMEOUT_SECONDS));
-
-                    
                     messageWriter = new DataWriter(socket.OutputStream);
                 }
                 catch (Exception e)
@@ -105,6 +117,8 @@ namespace libsignalservice.websocket
                             break;
                     }*/
                 }
+
+                this.connected = false;
                 Debug.WriteLine("WSC connected...");
             }
         }
@@ -115,9 +129,10 @@ namespace libsignalservice.websocket
 
             if (socket != null)
             {
-                socket.Close(1000, "None");
-                
+
+                socket.Close(1000, "OK");
                 socket = null;
+                connected = false;
             }
 
             /*if (keepAliveSender != null)
@@ -151,7 +166,27 @@ namespace libsignalservice.websocket
             }
         }*/
 
-        public async void sendMessage(WebSocketMessage message)
+        public async Task<Tuple<int, string>> sendRequest(WebSocketRequestMessage request)
+        {
+            if (socket == null || !connected)
+            {
+                throw new IOException("No connection!");
+            }
+
+            WebSocketMessage message = WebSocketMessage.CreateBuilder()
+                .SetType(WebSocketMessage.Types.Type.REQUEST)
+                .SetRequest(request)
+                .Build();
+
+            Tuple<int, string> empty = new Tuple<int, string>(0, string.Empty);
+            outgoingRequests.Add((long)request.Id, empty);
+
+            messageWriter.WriteBytes(message.ToByteArray());
+            await messageWriter.StoreAsync();
+            return empty;
+        }
+
+        public async Task sendMessage(WebSocketMessage message)
         {
             if (socket == null)
             {
@@ -162,7 +197,7 @@ namespace libsignalservice.websocket
             await messageWriter.StoreAsync();
         }
 
-        public async void sendResponse(WebSocketResponseMessage response)
+        public async Task sendResponse(WebSocketResponseMessage response)
         {
             if (socket == null)
             {
@@ -180,15 +215,20 @@ namespace libsignalservice.websocket
 
         private void sendKeepAlive(object state)
         {
-            Debug.WriteLine("keepAlive");
-                sendMessage(WebSocketMessage.CreateBuilder()
-                                                   .SetType(WebSocketMessage.Types.Type.REQUEST)
-                                                   .SetRequest(WebSocketRequestMessage.CreateBuilder()
-                                                                                      .SetId(KeyHelper.getTime())
-                                                                                      .SetPath("/v1/keepalive")
-                                                                                      .SetVerb("GET")
-                                                                                      .Build()).Build());
- 
+            if (socket != null)
+            {
+                Debug.WriteLine("keepAlive");
+                byte[] message = WebSocketMessage.CreateBuilder()
+                    .SetType(WebSocketMessage.Types.Type.REQUEST)
+                    .SetRequest(WebSocketRequestMessage.CreateBuilder()
+                        .SetId(KeyHelper.getTime())
+                    .SetPath("/v1/keepalive")
+                    .SetVerb("GET")
+                    .Build()).Build()
+                    .ToByteArray();
+                messageWriter.WriteBytes(message);
+                messageWriter.StoreAsync();
+            }
         }
 
         private ulong elapsedTime(ulong startTime)
@@ -202,9 +242,29 @@ namespace libsignalservice.websocket
         }
     }*/
 
-        private void OnClosed(IWebSocket sender, WebSocketClosedEventArgs args)
+        private async void OnClosed(IWebSocket sender, WebSocketClosedEventArgs args)
         {
             Debug.WriteLine("WSC disconnected...");
+            connected = false;
+
+            for (int i = 0; i < outgoingRequests.Count; i++)
+            {
+                outgoingRequests.Remove(i);
+                i--;
+            }
+
+            keepAliveTimer.Dispose();
+            keepAliveTimer = null;
+
+            await Task.Delay(Math.Min(++attempts * 200, (int)TimeSpan.FromSeconds(15).TotalMilliseconds));
+
+            if (socket != null)
+            {
+                socket.Close(1000, "OK");
+                socket = null;
+                connected = false;
+                await connect();
+            }
         }
 
         private void OnMessageReceived(MessageWebSocket sender, MessageWebSocketMessageReceivedEventArgs args)
@@ -228,7 +288,14 @@ namespace libsignalservice.websocket
                             incomingRequests.AddFirst(message.Request);
                             MessageReceived(this, message.Request);
                         }
-
+                        else if (message.Type == WebSocketMessage.Types.Type.RESPONSE)
+                        {
+                            if (outgoingRequests.ContainsKey((long)message.Response.Id))
+                            {
+                                outgoingRequests[(long)message.Response.Id] = Tuple.Create((int)message.Response.Status,
+                                    Encoding.UTF8.GetString(message.Response.Body.ToByteArray()));
+                            }
+                        }
                         
                     }
                     catch (InvalidProtocolBufferException e)
