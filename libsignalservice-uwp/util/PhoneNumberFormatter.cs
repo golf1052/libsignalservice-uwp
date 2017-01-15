@@ -46,7 +46,15 @@ namespace libsignalservice.util
 
         public static bool isValidNumber(string number)
         {
-            return (new Regex("^\\+[0-9]{10,}").Match(number)).Success;
+            return (new Regex("^\\+[0-9]{10,}").Match(number)).Success ||
+                (new Regex("^\\+685[0-9]{5}").Match(number)).Success ||
+                (new Regex("^\\+376[0-9]{6}").Match(number)).Success ||
+                (new Regex("^\\+299[0-9]{6}").Match(number)).Success ||
+                (new Regex("^\\+597[0-9]{6}").Match(number)).Success ||
+                (new Regex("^\\+298[0-9]{6}").Match(number)).Success ||
+                (new Regex("^\\+240[0-9]{6}").Match(number)).Success ||
+                (new Regex("^\\+687[0-9]{6}").Match(number)).Success ||
+                (new Regex("^\\+689[0-9]{6}").Match(number)).Success;
         }
 
         private static string impreciseFormatNumber(string number, string localNumber)
