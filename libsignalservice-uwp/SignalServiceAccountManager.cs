@@ -46,15 +46,14 @@ namespace libsignalservice
         /// <summary>
         /// Construct a SignalServivceAccountManager.
         /// </summary>
-        /// <param name="url">The URL for the Signal Service.</param>
-        /// <param name="trustStore">The <see cref="libsignalservice.push.TrustStore"/> for the SignalService server's TLS certificate</param>
+        /// <param name="urls">The URL for the Signal Service.</param>
         /// <param name="user">A Signal Service phone number</param>
         /// <param name="password">A Signal Service password.</param>
         /// <param name="userAgent">A string which identifies the client software.</param>
-        public SignalServiceAccountManager(SignalServiceUrl url, TrustStore trustStore,
+        public SignalServiceAccountManager(SignalServiceUrl[] urls,
                                         string user, string password, string userAgent)
         {
-            this.pushServiceSocket = new PushServiceSocket(url, trustStore, new StaticCredentialsProvider(user, password, null), userAgent);
+            this.pushServiceSocket = new PushServiceSocket(urls, new StaticCredentialsProvider(user, password, null), userAgent);
             this.user = user;
             this.userAgent = userAgent;
         }

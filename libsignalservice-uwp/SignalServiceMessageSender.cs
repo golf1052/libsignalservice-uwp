@@ -49,20 +49,19 @@ namespace libsignalservice
         /// <summary>
         /// Construct a SignalServiceMessageSender
         /// </summary>
-        /// <param name="url">The URL of the Signal Service.</param>
-        /// <param name="trustStore">The trust store containing the Signal Service's signing TLS certificate.</param>
+        /// <param name="urls">The URL of the Signal Service.</param>
         /// <param name="user">The Signal Service username (eg phone number).</param>
         /// <param name="password">The Signal Service user password</param>
         /// <param name="store">The SignalProtocolStore.</param>
         /// <param name="eventListener">An optional event listener, which fires whenever sessions are
         /// setup or torn down for a recipient.</param>
         /// <param name="userAgent"></param>
-        public SignalServiceMessageSender(SignalServiceUrl url, TrustStore trustStore,
+        public SignalServiceMessageSender(SignalServiceUrl[] urls,
                                        string user, string password,
                                        SignalProtocolStore store,
                                        May<EventListener> eventListener, string userAgent)
         {
-            this.socket = new PushServiceSocket(url, trustStore, new StaticCredentialsProvider(user, password, null), userAgent);
+            this.socket = new PushServiceSocket(urls, new StaticCredentialsProvider(user, password, null), userAgent);
             this.store = store;
             this.localAddress = new SignalServiceAddress(user);
             this.eventListener = eventListener;

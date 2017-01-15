@@ -30,6 +30,7 @@ using libsignalservice.util;
 using Newtonsoft.Json;
 using Strilanc.Value;
 using Windows.Networking;
+using Windows.Security.Cryptography;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 
@@ -37,7 +38,6 @@ namespace libsignalservice.push
 {
     public class PushServiceSocket
     {
-
         private static readonly string TAG = "PushServiceSocket";
 
         private static readonly string CREATE_ACCOUNT_DEBUG_PATH = "/v1/accounts/test/code/{0}";
@@ -65,17 +65,20 @@ namespace libsignalservice.push
         private static readonly string RECEIPT_PATH = "/v1/receipt/{0}/{1}";
         private static readonly string ATTACHMENT_PATH = "/v1/attachments/{0}";
 
-        private readonly SignalServiceUrl serviceUrl;
-        //private readonly TrustManager[] trustManagers;
+        private readonly SignalConnectionInformation[] signalConnectionInformation;
         private readonly CredentialsProvider credentialsProvider;
         private readonly string userAgent;
 
-        public PushServiceSocket(SignalServiceUrl serviceUrl, TrustStore trustStore, CredentialsProvider credentialsProvider, string userAgent)
+        public PushServiceSocket(SignalServiceUrl[] serviceUrls, CredentialsProvider credentialsProvider, string userAgent)
         {
-            this.serviceUrl = serviceUrl;
             this.credentialsProvider = credentialsProvider;
             this.userAgent = userAgent;
-            //this.trustManagers = BlacklistingTrustManager.createFor(trustStore);
+            this.signalConnectionInformation = new SignalConnectionInformation[serviceUrls.Length];
+
+            for (int i = 0; i < serviceUrls.Length; i++)
+            {
+                signalConnectionInformation[i] = new SignalConnectionInformation(serviceUrls[i]);
+            }
         }
 
         public async Task<bool> createAccount(bool voice) //throws IOException
@@ -597,10 +600,15 @@ namespace libsignalservice.push
         {
             try
             {
+                SignalConnectionInformation connectionInformation = getRandom(signalConnectionInformation);
+                string url = connectionInformation.getUrl();
+                May<string> hostHeader = connectionInformation.getHostHeader();
+                //TrustManger[] trustManagers = connectionInformation.getTrustManagers();
+
                 /*SSLContext context = SSLContext.getInstance("TLS");
                 context.init(null, trustManagers, null);*/
 
-                Uri url = new Uri(string.Format("{0}{1}", serviceUrl.getUrl(), urlFragment));
+                Uri uri = new Uri(string.Format("{0}{1}", url, urlFragment));
                 //Log.w(TAG, "Push service URL: " + serviceUrl);
                 //Log.w(TAG, "Opening URL: " + url);
                 var filter = new HttpBaseProtocolFilter();
@@ -637,9 +645,9 @@ namespace libsignalservice.push
                     headers.Add("X-Signal-Agent", userAgent);
                 }
 
-                if (serviceUrl.getHostHeader().HasValue)
+                if (hostHeader.HasValue)
                 {
-                    headers.Host = new HostName(serviceUrl.getHostHeader().ForceGetValue());
+                    headers.Host = new HostName(hostHeader.ForceGetValue());
                 }
 
                 /*if (body != null)
@@ -662,13 +670,13 @@ namespace libsignalservice.push
                 switch (method)
                 {
                     case "POST":
-                        return await connection.PostAsync(url, content);
+                        return await connection.PostAsync(uri, content);
                     case "PUT":
-                        return await connection.PutAsync(url, content);
+                        return await connection.PutAsync(uri, content);
                     case "DELETE":
-                        return await connection.DeleteAsync(url);
+                        return await connection.DeleteAsync(uri);
                     case "GET":
-                        return await connection.GetAsync(url);
+                        return await connection.GetAsync(uri);
                     default:
                         throw new Exception("Unknown method: " + method);
                 }
@@ -676,11 +684,11 @@ namespace libsignalservice.push
             }
             catch (UriFormatException e)
             {
-                throw new Exception(string.Format("Uri {0} {1} is wrong", serviceUrl.getUrl(), urlFragment));
+                throw new Exception(string.Format("Uri {0} {1} is wrong", "", urlFragment));
             }
             catch (Exception e)
             {
-                Debug.WriteLine(string.Format("Other exception {0}{1} is wrong", serviceUrl.getUrl(), urlFragment));
+                Debug.WriteLine(string.Format("Other exception {0}{1} is wrong", "", urlFragment));
                 throw new PushNetworkException(e);
             }
 
@@ -697,6 +705,11 @@ namespace libsignalservice.push
             {
                 throw new Exception(e.Message);
             }
+        }
+
+        private SignalConnectionInformation getRandom(SignalConnectionInformation[] connections)
+        {
+            return connections[CryptographicBuffer.GenerateRandomNumber() % connections.Length];
         }
     }
 
@@ -736,6 +749,35 @@ namespace libsignalservice.push
         {
             return location;
         }
+    }
+
+    class SignalConnectionInformation
+    {
+        private readonly string url;
+        private readonly May<string> hostHeader;
+        //private readonly TrustManager[] trustManagers;
+
+        public SignalConnectionInformation(SignalServiceUrl signalServiceUrl)
+        {
+            this.url = url;
+            this.hostHeader = hostHeader;
+            //this.trustManagers = BlacklistingTrustManager.createFor(signalServiceUrl.getTrustStore());
+        }
+
+        public string getUrl()
+        {
+            return url;
+        }
+
+        public May<string> getHostHeader()
+        {
+            return hostHeader;
+        }
+
+        //TrustManager[] getTrustManagers()
+        //{
+        //    return trustManagers;
+        //}
     }
 }
 

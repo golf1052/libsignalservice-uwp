@@ -34,41 +34,36 @@ namespace libsignalservice
     public class SignalServiceMessageReceiver
     {
         private readonly PushServiceSocket socket;
-        private readonly TrustStore trustStore;
-        private readonly SignalServiceUrl url;
+        private readonly SignalServiceUrl[] urls;
         private readonly CredentialsProvider credentialsProvider;
         private readonly string userAgent;
 
         /// <summary>
         /// Construct a SignalServiceMessageReceiver
         /// </summary>
-        /// <param name="url">The URL of the Signal Service.</param>
-        /// <param name="trustStore">The <see cref="libsignalservice.push.TrustStore"/> containing
+        /// <param name="urls">The URL of the Signal Service.</param>
         /// the server's TLS signing certificate</param>
         /// <param name="user">The Signal Service username (eg. phone number).</param>
         /// <param name="password">The Signal Service user password.</param>
         /// <param name="signalingKey">The 52 byte signaling key assigned to this user at registration</param>
         /// <param name="userAgent"></param>
-        public SignalServiceMessageReceiver(SignalServiceUrl url, TrustStore trustStore,
+        public SignalServiceMessageReceiver(SignalServiceUrl[] urls,
                                          string user, string password, string signalingKey, string userAgent)
-            : this(url, trustStore, new StaticCredentialsProvider(user, password, signalingKey), userAgent)
+            : this(urls, new StaticCredentialsProvider(user, password, signalingKey), userAgent)
         {
         }
 
         /// <summary>
         /// Construct a SignalServiceMessageReceiver.
         /// </summary>
-        /// <param name="url">The URL of the Signal Service.</param>
-        /// <param name="trustStore">The <see cref="libsignalservice.push.TrustStore"/> containing
-        /// the server's TLS signing certificate</param>
+        /// <param name="urls">The URL of the Signal Service.</param>
         /// <param name="credentials">The Signal Service user's credentials</param>
         /// <param name="userAgent"></param>
-        public SignalServiceMessageReceiver(SignalServiceUrl url, TrustStore trustStore, CredentialsProvider credentials, string userAgent)
+        public SignalServiceMessageReceiver(SignalServiceUrl[] urls, CredentialsProvider credentials, string userAgent)
         {
-            this.url = url;
-            this.trustStore = trustStore;
+            this.urls = urls;
             this.credentialsProvider = credentials;
-            this.socket = new PushServiceSocket(url, trustStore, credentials, userAgent);
+            this.socket = new PushServiceSocket(urls, credentials, userAgent);
             this.userAgent = userAgent;
         }
 
@@ -107,7 +102,7 @@ namespace libsignalservice
         /// <returns>A SignalServiceMessagePipe for receiving Signal Service messages.</returns>
         public SignalServiceMessagePipe createMessagePipe()
         {
-            WebSocketConnection webSocket = new WebSocketConnection(url.getUrl(), trustStore, credentialsProvider, userAgent);
+            WebSocketConnection webSocket = new WebSocketConnection(urls[0].getUrl(), urls[0].getTrustStore(), credentialsProvider, userAgent);
             return new SignalServiceMessagePipe(webSocket, credentialsProvider);
         }
 
