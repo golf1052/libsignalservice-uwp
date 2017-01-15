@@ -93,6 +93,11 @@ namespace libsignalservice.util
 
         public static string formatNumber(string number, string localNumber) //throws InvalidNumberException
         {
+            if (number == null)
+            {
+                throw new InvalidNumberException("Null string passed as number.");
+            }
+
             if (number.Contains("@"))
             {
                 throw new InvalidNumberException("Possible attempt to use email address.");
